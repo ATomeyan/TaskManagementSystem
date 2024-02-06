@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: task-management
+  datasource:
+    url: jdbc:mysql://localhost:3306/taskmanagement
+    username: root
+    password: 5202
+  jpa:
+    show-sql: false
+    open-in-view: false
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+    properties:
+      hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
+    database: mysql

@@ -12,25 +12,31 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import java.time.LocalDate;
 import java.util.UUID;
 
-@Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
+@Entity
+@Table(name = "task")
 public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID uuid;
 
+    @Column(name = "title", nullable = false)
     private String title;
 
+    @Column(name = "description", nullable = false)
     private String description;
 
+    @Column(name = "due_date", nullable = false)
     private LocalDate dueDate;
 
+    @Column(name = "priority", nullable = false)
     private String priority;
 
+    @Column(name = "status", nullable = false)
     private String status;
 
     @Override

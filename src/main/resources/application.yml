@@ -1,17 +1,17 @@
 spring:
-  application:
-    name: task-management
   datasource:
-    url: jdbc:mysql://localhost:3306/taskmanagement
     username: root
-    password: 5202
+    password:
+    url: jdbc:mysql://localhost:3306/taskmanagement
   jpa:
     show-sql: false
     open-in-view: false
-    generate-ddl: true
+    generate-ddl: false
     hibernate:
-      ddl-auto: update
-    properties:
-      hibernate:
-        dialect: org.hibernate.dialect.MySQLDialect
+      ddl-auto: create
     database: mysql
+    database-platform: org.hibernate.dialect.MySQLDialect
+  liquibase:
+    enabled: false
+server:
+  port: 8081

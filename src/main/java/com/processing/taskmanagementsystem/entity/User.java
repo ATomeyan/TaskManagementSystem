@@ -35,6 +35,9 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @OneToOne(fetch = FetchType.LAZY)
+    private Task task;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -49,6 +52,7 @@ public class User {
                 .append(lastName, user.lastName)
                 .append(username, user.username)
                 .append(password, user.password)
+                .append(task, user.task)
                 .isEquals();
     }
 
@@ -60,6 +64,7 @@ public class User {
                 .append(lastName)
                 .append(username)
                 .append(password)
+                .append(task)
                 .toHashCode();
     }
 
@@ -71,6 +76,7 @@ public class User {
                 .append("lastName", lastName)
                 .append("username", username)
                 .append("password", password)
+                .append("task", task)
                 .toString();
     }
 }

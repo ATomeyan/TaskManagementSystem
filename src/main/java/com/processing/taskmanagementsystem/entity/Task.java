@@ -30,6 +30,9 @@ public class Task {
     @Column(name = "description", nullable = false)
     private String description;
 
+    @Column(name = "start_date", nullable = false)
+    private LocalDate startDate;
+
     @Column(name = "due_date", nullable = false)
     private LocalDate dueDate;
 
@@ -38,6 +41,9 @@ public class Task {
 
     @Column(name = "status", nullable = false)
     private String status;
+
+    @OneToOne(mappedBy = "task", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private User user;
 
     @Override
     public boolean equals(Object o) {
@@ -54,17 +60,20 @@ public class Task {
                 .append(dueDate, task.dueDate)
                 .append(priority, task.priority)
                 .append(status, task.status)
+                .append(user, task.user)
                 .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(uuid).append(title)
+                .append(uuid)
+                .append(title)
                 .append(description)
                 .append(dueDate)
                 .append(priority)
                 .append(status)
+                .append(user)
                 .toHashCode();
     }
 
@@ -77,6 +86,7 @@ public class Task {
                 .append("dueDate", dueDate)
                 .append("priority", priority)
                 .append("status", status)
+                .append("user", user)
                 .toString();
     }
 }

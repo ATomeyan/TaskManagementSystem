@@ -3,6 +3,8 @@ package com.processing.taskmanagementsystem.service.impl;
 import ch.qos.logback.classic.Logger;
 import com.processing.taskmanagementsystem.dto.task.TaskRequestDto;
 import com.processing.taskmanagementsystem.dto.task.TaskResponseDto;
+import com.processing.taskmanagementsystem.entity.Task;
+import com.processing.taskmanagementsystem.mapper.TaskMapper;
 import com.processing.taskmanagementsystem.repository.TaskRepository;
 import com.processing.taskmanagementsystem.service.TaskService;
 import lombok.extern.slf4j.Slf4j;
@@ -24,10 +26,12 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public TaskResponseDto createTask(TaskRequestDto taskRequestDto) {
+    public void createTask(TaskRequestDto taskRequestDto) {
 
-//        taskRepository.save()
-        return null;
+        Task task = TaskMapper.mapRequestDtoToEntity(taskRequestDto);
+
+        taskRepository.save(task);
+        LOGGER.info("Task created.");
     }
 
     @Override

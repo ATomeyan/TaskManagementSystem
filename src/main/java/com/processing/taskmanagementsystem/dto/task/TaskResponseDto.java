@@ -17,6 +17,7 @@ public class TaskResponseDto implements Serializable {
     private UUID uuid;
     private String title;
     private String description;
+    private LocalDate startDate;
     private LocalDate dueDate;
     private String priority;
     private String status;

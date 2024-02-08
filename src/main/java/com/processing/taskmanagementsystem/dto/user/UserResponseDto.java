@@ -1,5 +1,6 @@
 package com.processing.taskmanagementsystem.dto.user;
 
+import com.processing.taskmanagementsystem.dto.task.TaskResponseDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -15,4 +16,5 @@ public class UserResponseDto implements Serializable {
     private UUID uuid;
     private String firstName;
     private String lastName;
+    private TaskResponseDto taskResponse;
 }

@@ -9,6 +9,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import java.util.Set;
 import java.util.UUID;
 
 @Getter
@@ -16,7 +17,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "user")
+@Table(name = "tb_user")
 public class User {
 
     @Id
@@ -38,6 +39,9 @@ public class User {
     @OneToOne(fetch = FetchType.LAZY)
     private Task task;
 
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private Set<UserRoles> userRoles;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -53,18 +57,19 @@ public class User {
                 .append(username, user.username)
                 .append(password, user.password)
                 .append(task, user.task)
+                .append(userRoles, user.userRoles)
                 .isEquals();
     }
 
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(uuid)
-                .append(firstName)
+                .append(uuid).append(firstName)
                 .append(lastName)
                 .append(username)
                 .append(password)
                 .append(task)
+                .append(userRoles)
                 .toHashCode();
     }
 
@@ -77,6 +82,7 @@ public class User {
                 .append("username", username)
                 .append("password", password)
                 .append("task", task)
+                .append("userRoles", userRoles)
                 .toString();
     }
 }

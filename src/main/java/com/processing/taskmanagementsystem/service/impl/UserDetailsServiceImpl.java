@@ -1,5 +1,7 @@
-package com.processing.taskmanagementsystem.entity;
+package com.processing.taskmanagementsystem.service.impl;
 
+import com.processing.taskmanagementsystem.entity.Role;
+import com.processing.taskmanagementsystem.entity.User;
 import com.processing.taskmanagementsystem.exception.NotFoundException;
 import com.processing.taskmanagementsystem.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;

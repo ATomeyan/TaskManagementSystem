@@ -16,5 +16,6 @@ public class UserResponseDto implements Serializable {
     private UUID uuid;
     private String firstName;
     private String lastName;
+    private String username;
     private TaskResponseDto taskResponse;
 }

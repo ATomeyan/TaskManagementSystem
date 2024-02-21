@@ -4,13 +4,18 @@ import lombok.AllArgsConstructor;
 import lombok.ToString;
 
 import java.time.LocalDateTime;
+import java.util.UUID;
 
 @AllArgsConstructor
 @ToString
 public class ExceptionResponse {
 
-    private LocalDateTime dateTime;
-    private int httpStatusCode;
+    private UUID guid;
     private String errorResponse;
     private String message;
+    private int httpStatusCode;
+    private String statusName;
+    private String path;
+    private String method;
+    private LocalDateTime dateTime;
 }

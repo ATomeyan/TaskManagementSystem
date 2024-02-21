@@ -2,7 +2,6 @@ package com.processing.taskmanagementsystem.dto.authentication;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.NotNull;
-import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,7 +27,5 @@ public class UserRegistration implements Serializable {
     @Size(max = 255)
     private String username;
     @NotNull
-    @Pattern(message = "Password is not valid", regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\\\d)(?=.*[@$!%*?&])[A-Za-z\\\\d@$!%*?&]{8,12}$")
-    @Size(min = 8, max = 12)
     private String password;
 }

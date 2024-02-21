@@ -1,10 +1,12 @@
 package com.processing.taskmanagementsystem.controller;
 
+import com.processing.taskmanagementsystem.dto.authentication.ChangePasswordRequest;
 import com.processing.taskmanagementsystem.dto.authentication.UserAuthenticationRequest;
 import com.processing.taskmanagementsystem.dto.authentication.UserAuthenticationResponse;
 import com.processing.taskmanagementsystem.dto.authentication.UserRegistration;
 import com.processing.taskmanagementsystem.service.UserAuthenticationService;
 import jakarta.validation.Valid;
+import org.hibernate.validator.constraints.ParameterScriptAssert;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -35,5 +37,11 @@ public class UserController {
         UserAuthenticationResponse authenticationResponse = userService.login(userAuthenticationRequest);
 
         return new ResponseEntity<>(authenticationResponse, HttpStatus.OK);
+    }
+
+    @PostMapping("/changePassword")
+    public ResponseEntity<?> changePassword(@Valid @RequestBody ChangePasswordRequest changePasswordRequest) {
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 }

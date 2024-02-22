@@ -9,8 +9,8 @@ import com.processing.taskmanagementsystem.entity.User;
 import com.processing.taskmanagementsystem.exception.AlreadyExistException;
 import com.processing.taskmanagementsystem.exception.InvalidObjectException;
 import com.processing.taskmanagementsystem.mapper.UserMapper;
-import com.processing.taskmanagementsystem.repository.RoleRepository;
 import com.processing.taskmanagementsystem.repository.UserRepository;
+import com.processing.taskmanagementsystem.service.RoleService;
 import com.processing.taskmanagementsystem.service.UserAuthenticationService;
 import org.slf4j.LoggerFactory;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -23,12 +23,12 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
 
     private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(UserAuthenticationService.class);
     private final UserRepository userRepository;
-    private final RoleRepository roleRepository;
+    private final RoleService roleService;
     private final PasswordEncoder passwordEncoder;
 
-    public UserAuthenticationServiceImpl(UserRepository userRepository, RoleRepository roleRepository, PasswordEncoder passwordEncoder) {
+    public UserAuthenticationServiceImpl(UserRepository userRepository, PasswordEncoder passwordEncoder, RoleService roleService) {
         this.userRepository = userRepository;
-        this.roleRepository = roleRepository;
+        this.roleService = roleService;
         this.passwordEncoder = passwordEncoder;
     }
 
@@ -47,7 +47,7 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
             throw new AlreadyExistException(String.format("User by username already exist: %s", userRegistration.getUsername()));
         }
 
-        Role roleByName = roleRepository.findRoleByName(userRegistration.getRole());
+        Role roleByName = roleService.getRoleByName(userRegistration.getRole());
         User user = UserMapper.mapRegistrationRequestToEntity(roleByName, userRegistration);
         user.setPassword(passwordEncoder.encode(userRegistration.getPassword()));
 

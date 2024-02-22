@@ -3,7 +3,11 @@ package com.processing.taskmanagementsystem.mapper;
 import com.processing.taskmanagementsystem.dto.authentication.UserRegistration;
 import com.processing.taskmanagementsystem.dto.user.UserRequestDto;
 import com.processing.taskmanagementsystem.dto.user.UserResponseDto;
+import com.processing.taskmanagementsystem.entity.Role;
 import com.processing.taskmanagementsystem.entity.User;
+import com.processing.taskmanagementsystem.entity.UserRoles;
+
+import java.util.List;
 
 public class UserMapper {
 
@@ -29,14 +33,16 @@ public class UserMapper {
         return user;
     }
 
-    public static User mapRegistrationRequestToEntity(UserRegistration userRegistration) {
+    public static User mapRegistrationRequestToEntity(Role roleByName, UserRegistration userRegistration) {
         User user = new User();
 
         user.setUuid(userRegistration.getUuid());
         user.setFirstName(userRegistration.getFirstName());
         user.setLastName(userRegistration.getLastName());
         user.setUsername(userRegistration.getUsername());
-
+        user.setEnabled(true);
+        UserRoles userRoles = UserRoleMapper.mapRequestToEntity(roleByName, user);
+        user.setUserRoles(List.of(userRoles));
 
         return user;
     }

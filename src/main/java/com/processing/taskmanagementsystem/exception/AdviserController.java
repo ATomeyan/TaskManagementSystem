@@ -80,4 +80,20 @@ public class AdviserController extends ResponseEntityExceptionHandler {
 
         return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
     }
+
+    @ExceptionHandler(EmptyException.class)
+    public ResponseEntity<ExceptionResponse> handleNotFoundException(EmptyException e, HttpServletRequest httpServletRequest) {
+        ExceptionResponse exceptionResponse = new ExceptionResponse(
+                UUID.randomUUID(),
+                HttpStatus.BAD_REQUEST.getReasonPhrase(),
+                e.getMessage(),
+                HttpStatus.BAD_REQUEST.value(),
+                HttpStatus.BAD_REQUEST.name(),
+                httpServletRequest.getRequestURI(),
+                httpServletRequest.getMethod(),
+                LocalDateTime.now()
+        );
+
+        return new ResponseEntity<>(exceptionResponse, HttpStatus.BAD_REQUEST);
+    }
 }

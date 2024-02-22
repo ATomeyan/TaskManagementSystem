@@ -6,7 +6,6 @@ import com.processing.taskmanagementsystem.dto.authentication.UserAuthentication
 import com.processing.taskmanagementsystem.dto.authentication.UserRegistration;
 import com.processing.taskmanagementsystem.service.UserAuthenticationService;
 import jakarta.validation.Valid;
-import org.hibernate.validator.constraints.ParameterScriptAssert;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;

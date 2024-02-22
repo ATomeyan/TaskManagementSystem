@@ -1,6 +1,6 @@
 package com.processing.taskmanagementsystem.dto.user;
 
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -13,11 +13,11 @@ import java.util.UUID;
 @Builder
 public class UserRequestDto implements Serializable {
 
-    private UUID uuid;
-    @NotNull
+    private String uuid;
+    @NotBlank
     private String firstName;
-    @NotNull
+    @NotBlank
     private String lastName;
-    @NotNull
+    @NotBlank
     private String username;
 }

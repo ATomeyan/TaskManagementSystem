@@ -10,7 +10,6 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -22,7 +21,8 @@ public class Task {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID uuid;
+    @Column(columnDefinition = "VARCHAR(36)")
+    private String uuid;
 
     @Column(name = "title", nullable = false)
     private String title;

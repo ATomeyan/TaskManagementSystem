@@ -9,8 +9,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import java.util.Set;
-import java.util.UUID;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,7 +21,8 @@ public class User {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID uuid;
+    @Column(columnDefinition = "VARCHAR(36)")
+    private String uuid;
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
@@ -36,11 +36,14 @@ public class User {
     @Column(name = "password", nullable = false)
     private String password;
 
+    @Column(name = "enabled", nullable = false)
+    private boolean enabled;
+
     @OneToOne(fetch = FetchType.LAZY)
     private Task task;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<UserRoles> userRoles;
+    private List<UserRoles> userRoles;
 
     @Override
     public boolean equals(Object o) {
@@ -56,6 +59,7 @@ public class User {
                 .append(lastName, user.lastName)
                 .append(username, user.username)
                 .append(password, user.password)
+                .append(enabled, user.enabled)
                 .append(task, user.task)
                 .append(userRoles, user.userRoles)
                 .isEquals();
@@ -64,10 +68,12 @@ public class User {
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(uuid).append(firstName)
+                .append(uuid)
+                .append(firstName)
                 .append(lastName)
                 .append(username)
                 .append(password)
+                .append(enabled)
                 .append(task)
                 .append(userRoles)
                 .toHashCode();
@@ -81,6 +87,7 @@ public class User {
                 .append("lastName", lastName)
                 .append("username", username)
                 .append("password", password)
+                .append("enabled", enabled)
                 .append("task", task)
                 .append("userRoles", userRoles)
                 .toString();

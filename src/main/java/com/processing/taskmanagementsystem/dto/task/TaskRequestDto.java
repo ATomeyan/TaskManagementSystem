@@ -1,32 +1,31 @@
 package com.processing.taskmanagementsystem.dto.task;
 
 import com.processing.taskmanagementsystem.dto.user.UserRequestDto;
-import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Getter
 @Setter
 @Builder
 public class TaskRequestDto implements Serializable {
 
-    private UUID uuid;
-    @NotNull
+    private String uuid;
+    @NotBlank
     private String title;
-    @NotNull
+    @NotBlank
     private String description;
-    @NotNull
+    @NotBlank
     private LocalDate startDate;
-    @NotNull
+    @NotBlank
     private LocalDate dueDate;
-    @NotNull
+    @NotBlank
     private String priority;
-    @NotNull
+    @NotBlank
     private String status;
     private UserRequestDto userRequestDto;
 }

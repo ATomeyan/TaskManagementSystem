@@ -7,14 +7,13 @@ import lombok.Setter;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.UUID;
 
 @Getter
 @Setter
 @Builder
 public class TaskResponseDto implements Serializable {
 
-    private UUID uuid;
+    private String uuid;
     private String title;
     private String description;
     private LocalDate startDate;

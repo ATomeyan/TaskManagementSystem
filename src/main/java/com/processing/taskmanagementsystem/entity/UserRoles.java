@@ -9,8 +9,6 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import java.util.UUID;
-
 @Getter
 @Setter
 @NoArgsConstructor
@@ -21,7 +19,8 @@ public class UserRoles {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID uuid;
+    @Column(columnDefinition = "VARCHAR(36)")
+    private String uuid;
 
     @ManyToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "user_uid", referencedColumnName = "uuid")

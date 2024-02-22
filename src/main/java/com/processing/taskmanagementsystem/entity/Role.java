@@ -9,8 +9,7 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
-import java.util.Set;
-import java.util.UUID;
+import java.util.List;
 
 @Getter
 @Setter
@@ -22,13 +21,14 @@ public class Role {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID uuid;
+    @Column(columnDefinition = "VARCHAR(36)")
+    private String uuid;
 
-    @Column(name = "role", nullable = false)
-    private String role;
+    @Column(name = "name", nullable = false)
+    private String name;
 
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
-    private Set<UserRoles> userRoles;
+    @OneToMany(mappedBy = "role", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
+    private List<UserRoles> userRoles;
 
     @Override
     public boolean equals(Object o) {
@@ -40,7 +40,7 @@ public class Role {
 
         return new EqualsBuilder()
                 .append(uuid, role1.uuid)
-                .append(role, role1.role)
+                .append(name, role1.name)
                 .append(userRoles, role1.userRoles)
                 .isEquals();
     }
@@ -48,7 +48,7 @@ public class Role {
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(uuid).append(role)
+                .append(uuid).append(name)
                 .append(userRoles)
                 .toHashCode();
     }
@@ -57,7 +57,7 @@ public class Role {
     public String toString() {
         return new ToStringBuilder(this)
                 .append("uuid", uuid)
-                .append("role", role)
+                .append("role", name)
                 .append("userRoles", userRoles)
                 .toString();
     }

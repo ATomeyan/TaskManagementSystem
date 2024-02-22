@@ -13,7 +13,7 @@ import java.util.UUID;
 @Builder
 public class UserResponseDto implements Serializable {
 
-    private UUID uuid;
+    private String uuid;
     private String firstName;
     private String lastName;
     private String username;

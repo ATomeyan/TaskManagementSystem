@@ -15,7 +15,6 @@ public class TaskMapper {
         task.setUuid(taskRequestDto.getUuid());
         task.setTitle(taskRequestDto.getTitle());
         task.setDescription(taskRequestDto.getDescription());
-        task.setStartDate(taskRequestDto.getStartDate());
         task.setDueDate(taskRequestDto.getDueDate());
         task.setPriority(taskRequestDto.getPriority());
         task.setStatus(taskRequestDto.getStatus());
@@ -30,7 +29,6 @@ public class TaskMapper {
                 .uuid(task.getUuid())
                 .title(task.getTitle())
                 .description(task.getDescription())
-                .startDate(task.getStartDate())
                 .dueDate(task.getDueDate())
                 .priority(task.getPriority())
                 .status(task.getStatus())

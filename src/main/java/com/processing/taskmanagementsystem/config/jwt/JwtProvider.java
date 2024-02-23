@@ -1,14 +1,17 @@
 package com.processing.taskmanagementsystem.config.jwt;
 
+import ch.qos.logback.classic.Logger;
 import com.processing.taskmanagementsystem.entity.User;
 import io.jsonwebtoken.*;
+import io.jsonwebtoken.io.Decoders;
+import io.jsonwebtoken.security.Keys;
 import lombok.extern.slf4j.Slf4j;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-import javax.crypto.spec.SecretKeySpec;
 import java.security.Key;
 import java.util.Date;
 
@@ -16,6 +19,7 @@ import java.util.Date;
 @Slf4j
 public class JwtProvider {
 
+    private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(JwtProvider.class);
     @Value("${security.jwt.expiration.access-token-time}")
     private Long accessTokenExpirationTime;
     @Value("${security.jwt.expiration.refresh-token-time}")
@@ -45,15 +49,15 @@ public class JwtProvider {
             Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
             return true;
         } catch (ExpiredJwtException e) {
-            log.error("Token expired.");
+            LOGGER.error("Token expired.");
         } catch (MalformedJwtException e) {
-            log.error("Invalid JWT token.");
+            LOGGER.error("Invalid JWT token.");
         } catch (SignatureException e) {
-            log.error("Invalid JWT signature.");
+            LOGGER.error("Invalid JWT signature.");
         } catch (UnsupportedJwtException e) {
-            log.error("JWT token is unsupported.");
+            LOGGER.error("JWT token is unsupported.");
         } catch (IllegalArgumentException e) {
-            log.error("JWT claims string is empty.");
+            LOGGER.error("JWT claims string is empty.");
         }
 
         return false;
@@ -69,12 +73,14 @@ public class JwtProvider {
         Date date = new Date();
         Date validate = new Date(date.getTime() + expiration);
 
-        Key key = new SecretKeySpec(java.util.Base64.getDecoder().decode(secretKey), SignatureAlgorithm.RS256.getJcaName());
-
         return Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(validate)
-                .signWith(SignatureAlgorithm.RS256, key)
+                .signWith(SignatureAlgorithm.HS512, secretKey)
                 .compact();
+    }
+
+    private Key key() {
+        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
     }
 }

@@ -7,6 +7,7 @@ import com.processing.taskmanagementsystem.entity.Role;
 import com.processing.taskmanagementsystem.entity.User;
 import com.processing.taskmanagementsystem.entity.UserRoles;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class UserMapper {
@@ -41,6 +42,7 @@ public class UserMapper {
         user.setLastName(userRegistration.getLastName());
         user.setUsername(userRegistration.getUsername());
         user.setEnabled(true);
+        user.setCreated(LocalDateTime.now());
         UserRoles userRoles = UserRoleMapper.mapRequestToEntity(roleByName, user);
         user.setUserRoles(List.of(userRoles));
 

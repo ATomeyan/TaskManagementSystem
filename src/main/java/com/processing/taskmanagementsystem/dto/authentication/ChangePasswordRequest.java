@@ -18,7 +18,7 @@ public class ChangePasswordRequest implements Serializable {
     @NotBlank
     private String oldPassword;
     @NotBlank
-    @Pattern(message = "Password is not valid", regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\\\d)(?=.*[@$!%*?&])[A-Za-z\\\\d@$!%*?&]{8,12}$")
+    @Pattern(message = "Password is not valid", regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d@$!%*?&]{8,12}$")
     @Size(min = 8, max = 12)
     private String newPassword;
 }

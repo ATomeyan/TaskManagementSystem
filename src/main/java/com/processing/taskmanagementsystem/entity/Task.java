@@ -17,21 +17,13 @@ import java.time.LocalDate;
 @AllArgsConstructor
 @Entity
 @Table(name = "tb_task")
-public class Task {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(columnDefinition = "VARCHAR(36)")
-    private String uuid;
+public class Task extends BaseEntity {
 
     @Column(name = "title", nullable = false)
     private String title;
 
     @Column(name = "description", nullable = false)
     private String description;
-
-    @Column(name = "start_date", nullable = false)
-    private LocalDate startDate;
 
     @Column(name = "due_date", nullable = false)
     private LocalDate dueDate;
@@ -54,7 +46,6 @@ public class Task {
         Task task = (Task) o;
 
         return new EqualsBuilder()
-                .append(uuid, task.uuid)
                 .append(title, task.title)
                 .append(description, task.description)
                 .append(dueDate, task.dueDate)
@@ -67,7 +58,6 @@ public class Task {
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(uuid)
                 .append(title)
                 .append(description)
                 .append(dueDate)
@@ -80,7 +70,6 @@ public class Task {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .append("uuid", uuid)
                 .append("title", title)
                 .append("description", description)
                 .append("dueDate", dueDate)

@@ -17,12 +17,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "tb_user")
-public class User {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(columnDefinition = "VARCHAR(36)")
-    private String uuid;
+public class User extends BaseEntity{
 
     @Column(name = "first_name", nullable = false)
     private String firstName;
@@ -42,7 +37,7 @@ public class User {
     @OneToOne(fetch = FetchType.LAZY)
     private Task task;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<UserRoles> userRoles;
 
     @Override
@@ -54,7 +49,6 @@ public class User {
         User user = (User) o;
 
         return new EqualsBuilder()
-                .append(uuid, user.uuid)
                 .append(firstName, user.firstName)
                 .append(lastName, user.lastName)
                 .append(username, user.username)
@@ -68,7 +62,6 @@ public class User {
     @Override
     public int hashCode() {
         return new HashCodeBuilder(17, 37)
-                .append(uuid)
                 .append(firstName)
                 .append(lastName)
                 .append(username)
@@ -82,7 +75,6 @@ public class User {
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .append("uuid", uuid)
                 .append("firstName", firstName)
                 .append("lastName", lastName)
                 .append("username", username)

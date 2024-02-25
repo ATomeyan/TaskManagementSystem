@@ -1,5 +1,6 @@
 package com.processing.taskmanagementsystem.dto.authentication;
 
+import com.processing.taskmanagementsystem.utils.ValidRegexp;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -18,7 +19,7 @@ public class ChangePasswordRequest implements Serializable {
     @NotBlank
     private String oldPassword;
     @NotBlank
-    @Pattern(message = "Password is not valid", regexp = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d@$!%*?&]{8,12}$")
+    @Pattern(message = "Password is not valid", regexp = ValidRegexp.password)
     @Size(min = 8, max = 12)
     private String newPassword;
 }

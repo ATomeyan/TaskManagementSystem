@@ -28,16 +28,11 @@ public class UserDetailsServiceImpl implements UserDetailsService {
                 new NotFoundException(String.format("User does not found, username: %s", username)));
 
         Set<Role> roles = Collections.singleton(user.getUserRoles().stream().iterator().next().getRole());
-
         Set<GrantedAuthority> authorities = new HashSet<>();
-//        authorities.add(new SimpleGrantedAuthority("ROLE_ADMIN"));
-//        authorities.add(new SimpleGrantedAuthority("ROLE_USER"));
 
         for (Role role : roles) {
             authorities.add(new SimpleGrantedAuthority("ROLE_" + role.getName()));
         }
-
-//        Set<SimpleGrantedAuthority> role = new HashSet<>(Collections.singleton(new SimpleGrantedAuthority("ROLE_ADMIN")));
 
         return org.springframework.security.core.userdetails.User.builder()
                 .username(user.getUsername())

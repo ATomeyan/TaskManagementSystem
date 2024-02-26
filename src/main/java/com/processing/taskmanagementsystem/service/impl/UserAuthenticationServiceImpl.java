@@ -2,9 +2,9 @@ package com.processing.taskmanagementsystem.service.impl;
 
 import ch.qos.logback.classic.Logger;
 import com.processing.taskmanagementsystem.config.jwt.JwtProvider;
-import com.processing.taskmanagementsystem.dto.authentication.UserAuthenticationRequest;
-import com.processing.taskmanagementsystem.dto.authentication.UserAuthenticationResponse;
-import com.processing.taskmanagementsystem.dto.authentication.UserRegistration;
+import com.processing.taskmanagementsystem.dto.request.authentication.UserAuthenticationRequest;
+import com.processing.taskmanagementsystem.dto.request.authentication.UserRegistrationRequest;
+import com.processing.taskmanagementsystem.dto.response.authentication.UserAuthenticationResponse;
 import com.processing.taskmanagementsystem.entity.Role;
 import com.processing.taskmanagementsystem.entity.User;
 import com.processing.taskmanagementsystem.exception.AlreadyExistException;
@@ -38,7 +38,7 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
 
     @Override
     @Transactional
-    public void createUser(UserRegistration userRegistration) {
+    public void createUser(UserRegistrationRequest userRegistration) {
 
         if (userRegistration == null) {
             LOGGER.error("The registration request is invalid.");
@@ -92,7 +92,7 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
         String alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
         StringBuilder password = new StringBuilder();
 
-        for (int i = 0; i < 12; i++){
+        for (int i = 0; i < 12; i++) {
             password.append(alphabet.charAt(random.nextInt(alphabet.length())));
         }
 

@@ -1,7 +1,7 @@
 package com.processing.taskmanagementsystem.service.impl;
 
 import ch.qos.logback.classic.Logger;
-import com.processing.taskmanagementsystem.dto.user.UserResponseDto;
+import com.processing.taskmanagementsystem.dto.response.user.UserResponseDto;
 import com.processing.taskmanagementsystem.entity.User;
 import com.processing.taskmanagementsystem.exception.NotFoundException;
 import com.processing.taskmanagementsystem.mapper.UserMapper;

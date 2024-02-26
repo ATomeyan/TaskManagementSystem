@@ -1,7 +1,6 @@
-package com.processing.taskmanagementsystem.dto.task;
+package com.processing.taskmanagementsystem.dto.response.task;
 
-import com.processing.taskmanagementsystem.dto.user.UserRequestDto;
-import jakarta.validation.constraints.NotBlank;
+import com.processing.taskmanagementsystem.dto.response.user.UserResponseDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -12,20 +11,14 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @Builder
-public class TaskRequestDto implements Serializable {
+public class TaskResponseDto implements Serializable {
 
     private String uuid;
-    @NotBlank
     private String title;
-    @NotBlank
     private String description;
-    @NotBlank
     private LocalDate startDate;
-    @NotBlank
     private LocalDate dueDate;
-    @NotBlank
     private String priority;
-    @NotBlank
     private String status;
-    private UserRequestDto userRequestDto;
+    private UserResponseDto userResponseDto;
 }

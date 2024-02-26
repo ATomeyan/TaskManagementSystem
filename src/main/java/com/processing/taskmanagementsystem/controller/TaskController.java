@@ -1,7 +1,7 @@
 package com.processing.taskmanagementsystem.controller;
 
-import com.processing.taskmanagementsystem.dto.task.TaskRequestDto;
-import com.processing.taskmanagementsystem.dto.task.TaskResponseDto;
+import com.processing.taskmanagementsystem.dto.request.task.TaskRequestDto;
+import com.processing.taskmanagementsystem.dto.response.task.TaskResponseDto;
 import com.processing.taskmanagementsystem.service.TaskService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,7 +42,7 @@ public class TaskController {
     }
 
     @DeleteMapping("/{uuid}")
-    public ResponseEntity<Boolean> deleteTaskByUid(@PathVariable String uuid){
+    public ResponseEntity<Boolean> deleteTaskByUid(@PathVariable String uuid) {
         boolean deleteTask = taskService.deleteTask(uuid);
 
         return new ResponseEntity<>(deleteTask, HttpStatus.OK);

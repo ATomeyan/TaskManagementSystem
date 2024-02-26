@@ -1,8 +1,8 @@
 package com.processing.taskmanagementsystem.mapper;
 
-import com.processing.taskmanagementsystem.dto.authentication.UserRegistration;
-import com.processing.taskmanagementsystem.dto.user.UserRequestDto;
-import com.processing.taskmanagementsystem.dto.user.UserResponseDto;
+import com.processing.taskmanagementsystem.dto.request.authentication.UserRegistrationRequest;
+import com.processing.taskmanagementsystem.dto.request.user.UserRequestDto;
+import com.processing.taskmanagementsystem.dto.response.user.UserResponseDto;
 import com.processing.taskmanagementsystem.entity.Role;
 import com.processing.taskmanagementsystem.entity.User;
 import com.processing.taskmanagementsystem.entity.UserRoles;
@@ -34,7 +34,7 @@ public class UserMapper {
         return user;
     }
 
-    public static User mapRegistrationRequestToEntity(Role roleByName, UserRegistration userRegistration) {
+    public static User mapRegistrationRequestToEntity(Role roleByName, UserRegistrationRequest userRegistration) {
         User user = new User();
 
         user.setUuid(userRegistration.getUuid());

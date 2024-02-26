@@ -1,4 +1,4 @@
-package com.processing.taskmanagementsystem.dto.authentication;
+package com.processing.taskmanagementsystem.dto.request.authentication;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;

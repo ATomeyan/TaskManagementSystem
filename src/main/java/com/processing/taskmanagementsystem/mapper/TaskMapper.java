@@ -1,7 +1,7 @@
 package com.processing.taskmanagementsystem.mapper;
 
-import com.processing.taskmanagementsystem.dto.task.TaskRequestDto;
-import com.processing.taskmanagementsystem.dto.task.TaskResponseDto;
+import com.processing.taskmanagementsystem.dto.request.task.TaskRequestDto;
+import com.processing.taskmanagementsystem.dto.response.task.TaskResponseDto;
 import com.processing.taskmanagementsystem.entity.Task;
 
 public class TaskMapper {

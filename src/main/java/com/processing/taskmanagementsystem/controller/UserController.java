@@ -1,9 +1,9 @@
 package com.processing.taskmanagementsystem.controller;
 
-import com.processing.taskmanagementsystem.dto.authentication.UserAuthenticationRequest;
-import com.processing.taskmanagementsystem.dto.authentication.UserAuthenticationResponse;
-import com.processing.taskmanagementsystem.dto.authentication.UserRegistration;
-import com.processing.taskmanagementsystem.dto.user.UserResponseDto;
+import com.processing.taskmanagementsystem.dto.request.authentication.UserAuthenticationRequest;
+import com.processing.taskmanagementsystem.dto.request.authentication.UserRegistrationRequest;
+import com.processing.taskmanagementsystem.dto.response.authentication.UserAuthenticationResponse;
+import com.processing.taskmanagementsystem.dto.response.user.UserResponseDto;
 import com.processing.taskmanagementsystem.service.UserAuthenticationService;
 import com.processing.taskmanagementsystem.service.UserService;
 import jakarta.validation.Valid;
@@ -47,7 +47,7 @@ public class UserController {
     }
 
     @PostMapping("/register")
-    public ResponseEntity<Void> register(@RequestBody @Valid UserRegistration userRegistration) {
+    public ResponseEntity<Void> register(@RequestBody @Valid UserRegistrationRequest userRegistration) {
         userAuthenticationService.createUser(userRegistration);
 
         return new ResponseEntity<>(HttpStatus.CREATED);

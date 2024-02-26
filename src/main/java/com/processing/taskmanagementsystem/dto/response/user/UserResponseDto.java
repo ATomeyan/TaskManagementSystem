@@ -1,12 +1,11 @@
-package com.processing.taskmanagementsystem.dto.user;
+package com.processing.taskmanagementsystem.dto.response.user;
 
-import com.processing.taskmanagementsystem.dto.task.TaskResponseDto;
+import com.processing.taskmanagementsystem.dto.response.task.TaskResponseDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 @Getter
 @Setter

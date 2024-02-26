@@ -1,6 +1,6 @@
-package com.processing.taskmanagementsystem.dto.task;
+package com.processing.taskmanagementsystem.dto.request.task;
 
-import com.processing.taskmanagementsystem.dto.user.UserResponseDto;
+import com.processing.taskmanagementsystem.dto.response.user.UserResponseDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;

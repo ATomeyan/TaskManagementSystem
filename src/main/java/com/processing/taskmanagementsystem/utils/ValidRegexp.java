@@ -6,5 +6,8 @@ package com.processing.taskmanagementsystem.utils;
  */
 public final class ValidRegexp {
 
+    private ValidRegexp() {
+    }
+
     public static final String password = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d@$!%*?&]{8,12}$";
 }

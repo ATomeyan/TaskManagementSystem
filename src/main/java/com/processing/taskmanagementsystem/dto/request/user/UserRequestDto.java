@@ -1,4 +1,4 @@
-package com.processing.taskmanagementsystem.dto.user;
+package com.processing.taskmanagementsystem.dto.request.user;
 
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
@@ -6,7 +6,6 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
-import java.util.UUID;
 
 @Getter
 @Setter

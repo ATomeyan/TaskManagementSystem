@@ -1,6 +1,6 @@
 package com.processing.taskmanagementsystem.service;
 
-import com.processing.taskmanagementsystem.dto.user.UserResponseDto;
+import com.processing.taskmanagementsystem.dto.response.user.UserResponseDto;
 
 import java.util.List;
 

@@ -1,4 +1,4 @@
-package com.processing.taskmanagementsystem.dto.authentication;
+package com.processing.taskmanagementsystem.dto.request.authentication;
 
 import com.processing.taskmanagementsystem.utils.ValidRegexp;
 import jakarta.validation.constraints.NotBlank;

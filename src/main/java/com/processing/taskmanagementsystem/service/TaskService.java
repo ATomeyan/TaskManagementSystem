@@ -1,7 +1,7 @@
 package com.processing.taskmanagementsystem.service;
 
-import com.processing.taskmanagementsystem.dto.task.TaskRequestDto;
-import com.processing.taskmanagementsystem.dto.task.TaskResponseDto;
+import com.processing.taskmanagementsystem.dto.request.task.TaskRequestDto;
+import com.processing.taskmanagementsystem.dto.response.task.TaskResponseDto;
 
 import java.util.List;
 

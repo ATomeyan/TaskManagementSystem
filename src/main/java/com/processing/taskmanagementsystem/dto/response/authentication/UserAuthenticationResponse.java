@@ -1,4 +1,4 @@
-package com.processing.taskmanagementsystem.dto.authentication;
+package com.processing.taskmanagementsystem.dto.response.authentication;
 
 import lombok.Builder;
 import lombok.Getter;

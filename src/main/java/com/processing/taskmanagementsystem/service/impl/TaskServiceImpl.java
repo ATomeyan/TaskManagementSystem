@@ -1,9 +1,9 @@
 package com.processing.taskmanagementsystem.service.impl;
 
 import ch.qos.logback.classic.Logger;
-import com.processing.taskmanagementsystem.dto.task.TaskRequestDto;
-import com.processing.taskmanagementsystem.dto.task.TaskResponseDto;
-import com.processing.taskmanagementsystem.dto.user.UserResponseDto;
+import com.processing.taskmanagementsystem.dto.request.task.TaskRequestDto;
+import com.processing.taskmanagementsystem.dto.response.task.TaskResponseDto;
+import com.processing.taskmanagementsystem.dto.response.user.UserResponseDto;
 import com.processing.taskmanagementsystem.entity.Task;
 import com.processing.taskmanagementsystem.exception.AssignedException;
 import com.processing.taskmanagementsystem.exception.InvalidObjectException;

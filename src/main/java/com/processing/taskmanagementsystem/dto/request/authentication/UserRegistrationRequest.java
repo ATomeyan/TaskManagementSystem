@@ -1,4 +1,4 @@
-package com.processing.taskmanagementsystem.dto.authentication;
+package com.processing.taskmanagementsystem.dto.request.authentication;
 
 import com.fasterxml.jackson.annotation.JsonInclude;
 import jakarta.validation.constraints.NotBlank;
@@ -13,7 +13,7 @@ import java.io.Serializable;
 @Setter
 @Builder
 @JsonInclude(JsonInclude.Include.NON_NULL)
-public class UserRegistration implements Serializable {
+public class UserRegistrationRequest implements Serializable {
 
     private String uuid;
     @NotBlank

@@ -18,7 +18,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.UUID;
+import java.util.Optional;
 
 @Service
 @Slf4j
@@ -69,17 +69,53 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public TaskResponseDto getTaskById(UUID uuid) {
-        return null;
+    public TaskResponseDto getTaskById(String uuid) {
+
+        if (uuid == null || uuid.isBlank()) {
+            LOGGER.error("UUID {} is not valid.", uuid);
+            throw new InvalidObjectException(String.format("UUID is not valid. %s", uuid));
+        }
+
+        Optional<Task> taskById = taskRepository.findById(uuid);
+
+        if (taskById.isEmpty()) {
+            LOGGER.error("User by {} uid was not found.", uuid);
+            throw new InvalidObjectException(String.format("User by uid was not found. %s", uuid));
+        }
+
+        return TaskMapper.mapEntityToResponseDto(taskById.get());
     }
 
     @Override
     public List<TaskResponseDto> getAllTasks() {
-        return null;
+
+        List<Task> allTasks = taskRepository.findAll();
+
+        if (allTasks.isEmpty()) {
+            LOGGER.error("Task does not found.");
+            throw new NotFoundException("Task does not found.");
+        }
+
+        return allTasks.stream().map(TaskMapper::mapEntityToResponseDto).toList();
     }
 
     @Override
-    public void deleteTask(UUID uuid) {
+    public boolean deleteTask(String uuid) {
 
+        if (uuid == null || uuid.isBlank()) {
+            LOGGER.error("UUID {} is not valid.", uuid);
+            throw new InvalidObjectException(String.format("UUID is not valid. %s", uuid));
+        }
+
+        Optional<Task> byId = taskRepository.findById(uuid);
+
+        if (byId.isPresent()) {
+            taskRepository.deleteById(uuid);
+            LOGGER.info("Task by {} uid was deleted.", uuid);
+            return true;
+        } else {
+            LOGGER.error("Task by {} uid was not found.", uuid);
+            throw new NotFoundException(String.format("Task by uid was not found. %s", uuid));
+        }
     }
 }

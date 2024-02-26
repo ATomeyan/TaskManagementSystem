@@ -22,14 +22,14 @@ public class RoleServiceImpl implements RoleService {
     public Role getRoleByName(String roleName) {
         if (roleName.isBlank()) {
             LOGGER.error("Role {} is invalid.", roleName);
-            throw new InvalidObjectException(String.format("Role {} is invalid. %s", roleName));
+            throw new InvalidObjectException(String.format("Role is invalid. %s", roleName));
         }
 
         Role role = roleRepository.findRoleByName(roleName);
 
         if (role == null) {
             LOGGER.error("Role object {} are empty.", role);
-            throw new EmptyException(String.format("Role object {} are empty. %s", role));
+            throw new EmptyException(String.format("Role object are empty. %s", role));
         }
 
         return role;

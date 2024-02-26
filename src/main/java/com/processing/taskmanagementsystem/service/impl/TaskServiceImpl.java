@@ -42,7 +42,7 @@ public class TaskServiceImpl implements TaskService {
             throw new InvalidObjectException("Task request is null.");
         }
 
-        String username = taskRequestDto.getUserRequestDto().getUsername();
+        String username = taskRequestDto.getUser().getUsername();
         UserResponseDto byUsername = userService.findByUsername(username);
 
         if (byUsername == null) {

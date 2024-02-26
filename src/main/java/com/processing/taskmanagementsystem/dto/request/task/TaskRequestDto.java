@@ -27,5 +27,5 @@ public class TaskRequestDto implements Serializable {
     private String priority;
     @NotBlank
     private String status;
-    private UserRequestDto userRequestDto;
+    private UserRequestDto user;
 }

@@ -32,7 +32,6 @@ public class Task extends BaseEntity {
     private String priority;
 
     @Column(name = "status", nullable = false)
-    @Enumerated(EnumType.STRING)
     private String status;
 
     @OneToOne(mappedBy = "task", cascade = CascadeType.ALL, fetch = FetchType.LAZY)

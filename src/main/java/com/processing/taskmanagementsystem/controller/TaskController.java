@@ -5,7 +5,6 @@ import com.processing.taskmanagementsystem.dto.response.task.TaskResponseDto;
 import com.processing.taskmanagementsystem.service.TaskService;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -35,7 +34,7 @@ public class TaskController {
     }
 
     @PostMapping
-    public ResponseEntity<TaskResponseDto> createTask(@RequestBody @Validated TaskRequestDto taskRequestDto) {
+    public ResponseEntity<TaskResponseDto> createTask(@RequestBody TaskRequestDto taskRequestDto) {
         TaskResponseDto task = taskService.createTask(taskRequestDto);
 
         return new ResponseEntity<>(task, HttpStatus.CREATED);

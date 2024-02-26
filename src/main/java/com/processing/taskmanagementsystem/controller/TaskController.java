@@ -1,14 +1,14 @@
 package com.processing.taskmanagementsystem.controller;
 
 import com.processing.taskmanagementsystem.dto.task.TaskRequestDto;
+import com.processing.taskmanagementsystem.dto.task.TaskResponseDto;
 import com.processing.taskmanagementsystem.service.TaskService;
-import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/task")
@@ -20,10 +20,31 @@ public class TaskController {
         this.taskService = taskService;
     }
 
-    @PostMapping
-    public ResponseEntity<Void> createTask(@RequestBody @Valid TaskRequestDto taskRequestDto) {
-        taskService.createTask(taskRequestDto);
+    @GetMapping
+    public ResponseEntity<List<TaskResponseDto>> getAllTasks() {
+        List<TaskResponseDto> allTasks = taskService.getAllTasks();
 
-        return new ResponseEntity<>(HttpStatus.CREATED);
+        return new ResponseEntity<>(allTasks, HttpStatus.OK);
+    }
+
+    @GetMapping("/{uuid}")
+    public ResponseEntity<TaskResponseDto> getTaskByUid(@PathVariable String uuid) {
+        TaskResponseDto taskById = taskService.getTaskById(uuid);
+
+        return new ResponseEntity<>(taskById, HttpStatus.OK);
+    }
+
+    @PostMapping
+    public ResponseEntity<TaskResponseDto> createTask(@RequestBody @Validated TaskRequestDto taskRequestDto) {
+        TaskResponseDto task = taskService.createTask(taskRequestDto);
+
+        return new ResponseEntity<>(task, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/{uuid}")
+    public ResponseEntity<Boolean> deleteTaskByUid(@PathVariable String uuid){
+        boolean deleteTask = taskService.deleteTask(uuid);
+
+        return new ResponseEntity<>(deleteTask, HttpStatus.OK);
     }
 }

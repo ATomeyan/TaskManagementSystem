@@ -3,8 +3,7 @@ package com.processing.taskmanagementsystem.config.jwt;
 import ch.qos.logback.classic.Logger;
 import com.processing.taskmanagementsystem.entity.User;
 import io.jsonwebtoken.*;
-import io.jsonwebtoken.io.Decoders;
-import io.jsonwebtoken.security.Keys;
+import jakarta.annotation.PostConstruct;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
@@ -12,7 +11,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
-import java.security.Key;
+import java.util.Base64;
 import java.util.Date;
 
 @Component
@@ -27,16 +26,17 @@ public class JwtProvider {
     @Value("${security.jwt.secret-key}")
     private String secretKey;
 
+    @PostConstruct
+    protected void init() {
+        secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
+    }
+
     public String accessTokenGenerator(User user) {
         return generateToken(user, accessTokenExpirationTime);
     }
 
     public String refreshTokenGenerator(User user) {
         return generateToken(user, refreshTokenExpirationTime);
-    }
-
-    public String getUsernameFromJwt(String token) {
-        return Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody().getSubject();
     }
 
     public String getLoginFromJwtToken(String token) {
@@ -78,9 +78,5 @@ public class JwtProvider {
                 .setExpiration(validate)
                 .signWith(SignatureAlgorithm.HS512, secretKey)
                 .compact();
-    }
-
-    private Key key() {
-        return Keys.hmacShaKeyFor(Decoders.BASE64.decode(secretKey));
     }
 }

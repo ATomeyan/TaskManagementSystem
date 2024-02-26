@@ -18,7 +18,7 @@ public class TaskMapper {
         task.setDueDate(taskRequestDto.getDueDate());
         task.setPriority(taskRequestDto.getPriority());
         task.setStatus(taskRequestDto.getStatus());
-        task.setUser(UserMapper.mapRequestToEntity(taskRequestDto.getUserRequestDto()));
+        task.setUser(UserMapper.mapRequestToEntity(taskRequestDto.getUser()));
 
         return task;
     }

@@ -25,6 +25,7 @@ public class UserRegistrationRequest implements Serializable {
     @NotBlank
     @Size(max = 255)
     private String username;
+    private String password;
     @NotBlank
     private String role;
 }

@@ -36,8 +36,8 @@ public class User extends BaseEntity{
     @Column(name = "enabled", nullable = false)
     private boolean enabled;
 
-    @OneToOne(fetch = FetchType.LAZY)
-    private Task task;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    private List<TaskUser> taskUsers;
 
     @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @Fetch(FetchMode.JOIN)
@@ -57,7 +57,7 @@ public class User extends BaseEntity{
                 .append(username, user.username)
                 .append(password, user.password)
                 .append(enabled, user.enabled)
-                .append(task, user.task)
+                .append(taskUsers, user.taskUsers)
                 .append(userRoles, user.userRoles)
                 .isEquals();
     }
@@ -70,7 +70,7 @@ public class User extends BaseEntity{
                 .append(username)
                 .append(password)
                 .append(enabled)
-                .append(task)
+                .append(taskUsers)
                 .append(userRoles)
                 .toHashCode();
     }
@@ -83,7 +83,7 @@ public class User extends BaseEntity{
                 .append("username", username)
                 .append("password", password)
                 .append("enabled", enabled)
-                .append("task", task)
+                .append("taskUsers", taskUsers)
                 .append("userRoles", userRoles)
                 .toString();
     }

@@ -10,6 +10,7 @@ import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
 import java.time.LocalDate;
+import java.util.List;
 
 @Getter
 @Setter
@@ -34,8 +35,8 @@ public class Task extends BaseEntity {
     @Column(name = "status", nullable = false)
     private String status;
 
-    @OneToOne(mappedBy = "task", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    private User user;
+    @OneToMany(mappedBy = "task", fetch = FetchType.LAZY)
+    private List<TaskUser> taskUsers;
 
     @Override
     public boolean equals(Object o) {
@@ -51,7 +52,7 @@ public class Task extends BaseEntity {
                 .append(dueDate, task.dueDate)
                 .append(priority, task.priority)
                 .append(status, task.status)
-                .append(user, task.user)
+                .append(taskUsers, task.taskUsers)
                 .isEquals();
     }
 
@@ -63,7 +64,7 @@ public class Task extends BaseEntity {
                 .append(dueDate)
                 .append(priority)
                 .append(status)
-                .append(user)
+                .append(taskUsers)
                 .toHashCode();
     }
 
@@ -75,7 +76,7 @@ public class Task extends BaseEntity {
                 .append("dueDate", dueDate)
                 .append("priority", priority)
                 .append("status", status)
-                .append("user", user)
+                .append("taskUser", taskUsers)
                 .toString();
     }
 }

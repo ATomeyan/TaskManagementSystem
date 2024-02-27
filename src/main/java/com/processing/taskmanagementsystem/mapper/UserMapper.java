@@ -1,7 +1,6 @@
 package com.processing.taskmanagementsystem.mapper;
 
 import com.processing.taskmanagementsystem.dto.request.authentication.UserRegistrationRequest;
-import com.processing.taskmanagementsystem.dto.request.user.UserRequestDto;
 import com.processing.taskmanagementsystem.dto.response.user.UserResponseDto;
 import com.processing.taskmanagementsystem.entity.Role;
 import com.processing.taskmanagementsystem.entity.User;
@@ -20,18 +19,7 @@ public class UserMapper {
                 .uuid(user.getUuid())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
-                .taskResponse(TaskMapper.mapEntityToResponseDto(user.getTask()))
                 .build();
-    }
-
-    public static User mapRequestToEntity(UserRequestDto userRequestDto) {
-        User user = new User();
-
-        user.setUuid(userRequestDto.getUuid());
-        user.setFirstName(userRequestDto.getFirstName());
-        user.setLastName(userRequestDto.getLastName());
-
-        return user;
     }
 
     public static User mapRegistrationRequestToEntity(Role roleByName, UserRegistrationRequest userRegistration) {
@@ -43,8 +31,19 @@ public class UserMapper {
         user.setUsername(userRegistration.getUsername());
         user.setEnabled(true);
         user.setCreated(LocalDateTime.now());
+
         UserRoles userRoles = UserRoleMapper.mapRequestToEntity(roleByName, user);
         user.setUserRoles(List.of(userRoles));
+
+        return user;
+    }
+
+    public static User mapResponseToEntity(UserResponseDto userResponseDto) {
+        User user = new User();
+
+        user.setUuid(userResponseDto.getUuid());
+        user.setFirstName(userResponseDto.getFirstName());
+        user.setLastName(userResponseDto.getLastName());
 
         return user;
     }

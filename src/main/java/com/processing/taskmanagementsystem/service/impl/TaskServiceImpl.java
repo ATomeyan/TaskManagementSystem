@@ -2,6 +2,7 @@ package com.processing.taskmanagementsystem.service.impl;
 
 import ch.qos.logback.classic.Logger;
 import com.processing.taskmanagementsystem.dto.request.task.TaskRequestDto;
+import com.processing.taskmanagementsystem.dto.request.update.task.TaskUpdateRequestDto;
 import com.processing.taskmanagementsystem.dto.response.task.TaskResponseDto;
 import com.processing.taskmanagementsystem.dto.response.user.UserResponseDto;
 import com.processing.taskmanagementsystem.entity.Task;
@@ -16,6 +17,10 @@ import com.processing.taskmanagementsystem.service.TaskService;
 import com.processing.taskmanagementsystem.service.UserService;
 import lombok.extern.slf4j.Slf4j;
 import org.slf4j.LoggerFactory;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -67,8 +72,19 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public TaskResponseDto updateTask(TaskRequestDto taskRequestDto) {
-        return null;
+    public TaskResponseDto updateTask(TaskUpdateRequestDto taskUpdateRequestDto) {
+        if (taskUpdateRequestDto == null) {
+            LOGGER.error("Update request object is invalid.");
+            throw new InvalidObjectException("Update request object is invalid.");
+        }
+
+        TaskResponseDto taskById = getTaskById(taskUpdateRequestDto.getUuid());
+
+        Task task = TaskMapper.mapUpdateRequestToEntity(taskUpdateRequestDto);
+
+        Task updatedTask = taskRepository.save(task);
+
+        return TaskMapper.mapEntityToResponseDto(updatedTask);
     }
 
     @Override
@@ -90,9 +106,10 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<TaskResponseDto> getAllTasks() {
+    public List<TaskResponseDto> getAllTasks(Integer pageNo, Integer pageSize, String sortBy) {
 
-        List<Task> allTasks = taskRepository.findAll();
+        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortBy).ascending());
+        Page<Task> allTasks = taskRepository.findAll(pageable);
 
         if (allTasks.isEmpty()) {
             LOGGER.error("Task does not found.");
@@ -103,28 +120,18 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<TaskResponseDto> getAllTaskByStatusToDo() {
-        return null;
-    }
+    public List<TaskResponseDto> getAllTaskByCriteria(String criteria, Integer pageNo, Integer pageSize, String sortBy) {
 
-    @Override
-    public List<TaskResponseDto> getAllTaskByStatusInProcess() {
-        return null;
-    }
+        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortBy).ascending());
 
-    @Override
-    public List<TaskResponseDto> getAllTaskByStatusBlocked() {
-        return null;
-    }
+        Page<Task> tasksByCriteria = taskRepository.findTasksByCriteria(criteria, pageable);
 
-    @Override
-    public List<TaskResponseDto> getAllTaskByStatusCompleted() {
-        return null;
-    }
+        if (tasksByCriteria.isEmpty()) {
+            LOGGER.error("Task does not found.");
+            throw new NotFoundException("Task does not found.");
+        }
 
-    @Override
-    public List<TaskResponseDto> getAllTaskByStatusCanceled() {
-        return null;
+        return tasksByCriteria.stream().map(TaskMapper::mapEntityToResponseDto).toList();
     }
 
     @Override

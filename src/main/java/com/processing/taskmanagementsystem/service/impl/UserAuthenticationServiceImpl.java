@@ -54,7 +54,7 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
 
         Role roleByName = roleService.getRoleByName(userRegistration.getRole());
         User user = UserMapper.mapRegistrationRequestToEntity(roleByName, userRegistration);
-        user.setPassword(passwordEncoder.encode(passwordGenerator()));
+        user.setPassword(passwordEncoder.encode(userRegistration.getPassword()));
 
         userRepository.save(user);
     }

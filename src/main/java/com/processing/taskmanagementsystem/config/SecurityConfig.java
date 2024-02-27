@@ -31,7 +31,11 @@ public class SecurityConfig {
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(HttpMethod.POST, "/api/v1/user/register").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/v1/user/register").permitAll()
+                        .requestMatchers(HttpMethod.POST, "/api/v1/task/crateTask/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.DELETE, "/api/v1/task/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.PUT, "/api/v1/task/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.GET, "/api/v1/task/**").hasAnyRole("ADMIN", "USER")
                         .requestMatchers(HttpMethod.POST, "/api/v1/user/login").permitAll()
                         .anyRequest().authenticated())
                 .authenticationProvider(authenticationProvider)

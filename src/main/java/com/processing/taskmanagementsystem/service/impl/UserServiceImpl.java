@@ -9,6 +9,7 @@ import com.processing.taskmanagementsystem.repository.UserRepository;
 import com.processing.taskmanagementsystem.service.UserService;
 import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.Optional;
@@ -47,7 +48,7 @@ public class UserServiceImpl implements UserService {
 
         List<UserResponseDto> usersWithoutTask = allUsers
                 .stream()
-                .filter(user -> user.getTask() == null)
+                .filter(user -> user.getTaskUsers().stream().iterator().next().getTask() == null)
                 .map(UserMapper::mapEntityToUserResponse)
                 .toList();
 
@@ -70,7 +71,7 @@ public class UserServiceImpl implements UserService {
 
         List<UserResponseDto> usersWithTask = allUsers
                 .stream()
-                .filter(u -> u.getTask() != null)
+                .filter(u -> u.getTaskUsers().stream().iterator().next().getTask() != null)
                 .map(UserMapper::mapEntityToUserResponse)
                 .toList();
 
@@ -83,6 +84,7 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
+    @Transactional
     public UserResponseDto findByUsername(String username) {
 
         if (username == null || username.isBlank()) {

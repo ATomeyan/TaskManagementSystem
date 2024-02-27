@@ -5,10 +5,12 @@ import com.processing.taskmanagementsystem.dto.request.task.TaskRequestDto;
 import com.processing.taskmanagementsystem.dto.response.task.TaskResponseDto;
 import com.processing.taskmanagementsystem.dto.response.user.UserResponseDto;
 import com.processing.taskmanagementsystem.entity.Task;
+import com.processing.taskmanagementsystem.entity.User;
 import com.processing.taskmanagementsystem.exception.AssignedException;
 import com.processing.taskmanagementsystem.exception.InvalidObjectException;
 import com.processing.taskmanagementsystem.exception.NotFoundException;
 import com.processing.taskmanagementsystem.mapper.TaskMapper;
+import com.processing.taskmanagementsystem.mapper.UserMapper;
 import com.processing.taskmanagementsystem.repository.TaskRepository;
 import com.processing.taskmanagementsystem.service.TaskService;
 import com.processing.taskmanagementsystem.service.UserService;
@@ -55,7 +57,8 @@ public class TaskServiceImpl implements TaskService {
             throw new AssignedException(String.format("The task already assigned to this username %s:", username));
         }
 
-        Task createdTask = TaskMapper.mapRequestDtoToEntity(taskRequestDto);
+        User user = UserMapper.mapResponseToEntity(byUsername);
+        Task createdTask = TaskMapper.mapRequestDtoToEntity(user, taskRequestDto);
         taskRepository.save(createdTask);
 
         LOGGER.info("Task created.");
@@ -97,6 +100,31 @@ public class TaskServiceImpl implements TaskService {
         }
 
         return allTasks.stream().map(TaskMapper::mapEntityToResponseDto).toList();
+    }
+
+    @Override
+    public List<TaskResponseDto> getAllTaskByStatusToDo() {
+        return null;
+    }
+
+    @Override
+    public List<TaskResponseDto> getAllTaskByStatusInProcess() {
+        return null;
+    }
+
+    @Override
+    public List<TaskResponseDto> getAllTaskByStatusBlocked() {
+        return null;
+    }
+
+    @Override
+    public List<TaskResponseDto> getAllTaskByStatusCompleted() {
+        return null;
+    }
+
+    @Override
+    public List<TaskResponseDto> getAllTaskByStatusCanceled() {
+        return null;
     }
 
     @Override

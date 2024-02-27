@@ -15,5 +15,15 @@ public interface TaskService {
 
     List<TaskResponseDto> getAllTasks();
 
+    List<TaskResponseDto> getAllTaskByStatusToDo();
+
+    List<TaskResponseDto> getAllTaskByStatusInProcess();
+
+    List<TaskResponseDto> getAllTaskByStatusBlocked();
+
+    List<TaskResponseDto> getAllTaskByStatusCompleted();
+
+    List<TaskResponseDto> getAllTaskByStatusCanceled();
+
     boolean deleteTask(String uuid);
 }

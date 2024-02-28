@@ -72,13 +72,15 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
+    @Transactional
     public TaskResponseDto updateTask(TaskUpdateRequestDto taskUpdateRequestDto) {
+
         if (taskUpdateRequestDto == null) {
             LOGGER.error("Update request object is invalid.");
             throw new InvalidObjectException("Update request object is invalid.");
         }
 
-        TaskResponseDto taskById = getTaskById(taskUpdateRequestDto.getUuid());
+//        TaskResponseDto taskById = getTaskById(taskUpdateRequestDto.getUuid());
 
         Task task = TaskMapper.mapUpdateRequestToEntity(taskUpdateRequestDto);
 

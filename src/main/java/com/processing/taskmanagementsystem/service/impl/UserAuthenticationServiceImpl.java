@@ -4,6 +4,7 @@ import ch.qos.logback.classic.Logger;
 import com.processing.taskmanagementsystem.config.jwt.JwtProvider;
 import com.processing.taskmanagementsystem.dto.request.authentication.UserAuthenticationRequest;
 import com.processing.taskmanagementsystem.dto.request.authentication.UserRegistrationRequest;
+import com.processing.taskmanagementsystem.dto.request.update.authentication.ChangePasswordRequest;
 import com.processing.taskmanagementsystem.dto.response.authentication.UserAuthenticationResponse;
 import com.processing.taskmanagementsystem.entity.Role;
 import com.processing.taskmanagementsystem.entity.User;
@@ -21,7 +22,9 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.security.Principal;
 import java.security.SecureRandom;
+import java.time.LocalDateTime;
 import java.util.Optional;
 import java.util.Random;
 
@@ -85,6 +88,25 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
         }
 
         return null;
+    }
+
+    @Override
+    public void changePassword(ChangePasswordRequest changePasswordRequest, Principal principal) {
+
+        User user = (User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();
+
+        if (!passwordEncoder.matches(changePasswordRequest.getCurrentPassword(), user.getPassword())) {
+            LOGGER.error("Wrong password.");
+        }
+
+        if (!changePasswordRequest.getNewPassword().equals(changePasswordRequest.getConfirmNewPassword())) {
+            LOGGER.error("Password are not equal.");
+        }
+
+        user.setPassword(passwordEncoder.encode(changePasswordRequest.getNewPassword()));
+        user.setUpdated(LocalDateTime.now());
+
+        userRepository.save(user);
     }
 
     private String passwordGenerator() {

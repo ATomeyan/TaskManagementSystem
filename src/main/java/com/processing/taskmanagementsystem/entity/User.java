@@ -19,7 +19,7 @@ import java.util.List;
 @AllArgsConstructor
 @Entity
 @Table(name = "tb_user")
-public class User extends BaseEntity{
+public class User extends BaseEntity {
 
     @Column(name = "first_name", nullable = false)
     private String firstName;

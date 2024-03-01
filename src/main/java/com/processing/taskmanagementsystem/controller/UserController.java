@@ -2,6 +2,7 @@ package com.processing.taskmanagementsystem.controller;
 
 import com.processing.taskmanagementsystem.dto.request.authentication.UserAuthenticationRequest;
 import com.processing.taskmanagementsystem.dto.request.authentication.UserRegistrationRequest;
+import com.processing.taskmanagementsystem.dto.request.update.authentication.ChangePasswordRequest;
 import com.processing.taskmanagementsystem.dto.response.authentication.UserAuthenticationResponse;
 import com.processing.taskmanagementsystem.dto.response.user.UserResponseDto;
 import com.processing.taskmanagementsystem.service.UserAuthenticationService;
@@ -11,6 +12,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 
 @RestController
@@ -59,6 +61,13 @@ public class UserController {
         UserAuthenticationResponse authenticationResponse = userAuthenticationService.login(userAuthenticationRequest);
 
         return new ResponseEntity<>(authenticationResponse, HttpStatus.OK);
+    }
+
+    @PatchMapping
+    public ResponseEntity<Void> changePassword(@RequestBody ChangePasswordRequest passwordRequest, Principal principal) {
+        userAuthenticationService.changePassword(passwordRequest, principal);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @DeleteMapping("/{uuid}")

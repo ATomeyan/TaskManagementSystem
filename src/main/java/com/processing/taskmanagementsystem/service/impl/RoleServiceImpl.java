@@ -19,6 +19,7 @@ public class RoleServiceImpl implements RoleService {
         this.roleRepository = roleRepository;
     }
 
+    @Override
     public Role getRoleByName(String roleName) {
         if (roleName.isBlank()) {
             LOGGER.error("Role {} is invalid.", roleName);

@@ -9,12 +9,14 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import static com.processing.taskmanagementsystem.utils.DBConstants.*;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tb_task_user")
+@Table(name = TB_TASK_USER)
 public class TaskUser {
 
     @Id
@@ -23,11 +25,11 @@ public class TaskUser {
     private String uuid;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_uid", referencedColumnName = "uuid")
+    @JoinColumn(name = USER_UID, referencedColumnName = UUID)
     private User user;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "task_uid", referencedColumnName = "uuid")
+    @JoinColumn(name = TASK_UID, referencedColumnName = UUID)
     private Task task;
 
     @Override

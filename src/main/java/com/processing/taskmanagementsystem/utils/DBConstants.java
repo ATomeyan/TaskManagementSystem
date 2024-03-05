@@ -27,4 +27,18 @@ public final class DBConstants {
     public static final String STATUS = "status";
 
     // User table fields
+    public static final String FIRST_NAME = "first_name";
+    public static final String LAST_NAME = "last_name";
+    public static final String USERNAME = "username";
+    public static final String PASSWORD = "password";
+    public static final String ENABLED = "enabled";
+
+    // Mapped tables
+    public static final String UUID = "uuid";
+    public static final String USER_UID = "user_uid";
+    public static final String ROLE_UID = "role_uid";
+    public static final String TASK_UID = "task_uid";
+    public static final String USER = "user";
+    public static final String TASK = "task";
+    public static final String ROLE = "role";
 }

@@ -11,6 +11,9 @@ import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
 
+import static com.processing.taskmanagementsystem.utils.DBConstants.CRATED;
+import static com.processing.taskmanagementsystem.utils.DBConstants.UPDATED;
+
 @Getter
 @Setter
 @NoArgsConstructor
@@ -24,11 +27,11 @@ public class BaseEntity {
     @Column(columnDefinition = "VARCHAR(36)")
     private String uuid;
 
-    @Column(name = "created", nullable = false)
+    @Column(name = CRATED, nullable = false)
     @CreatedDate
     private LocalDateTime created;
 
-    @Column(name = "updated")
+    @Column(name = UPDATED)
     @LastModifiedDate
     private LocalDateTime updated;
 }

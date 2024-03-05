@@ -13,8 +13,7 @@ import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
 
-import static com.processing.taskmanagementsystem.utils.DBConstants.NAME;
-import static com.processing.taskmanagementsystem.utils.DBConstants.TB_ROLE;
+import static com.processing.taskmanagementsystem.utils.DBConstants.*;
 
 @Getter
 @Setter
@@ -32,7 +31,7 @@ public class Role {
     @Column(name = NAME, nullable = false)
     private String name;
 
-    @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = ROLE, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @Fetch(FetchMode.JOIN)
     private List<UserRoles> userRoles;
 

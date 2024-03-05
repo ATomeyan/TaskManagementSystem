@@ -9,12 +9,14 @@ import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
 
+import static com.processing.taskmanagementsystem.utils.DBConstants.*;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tb_user_roles")
+@Table(name = TB_USER_ROLES)
 public class UserRoles {
 
     @Id
@@ -23,11 +25,11 @@ public class UserRoles {
     private String uuid;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_uid", referencedColumnName = "uuid")
+    @JoinColumn(name = USER_UID, referencedColumnName = UUID)
     private User user;
 
     @ManyToOne(cascade = CascadeType.ALL)
-    @JoinColumn(name = "role_uid", referencedColumnName = "uuid")
+    @JoinColumn(name = ROLE_UID, referencedColumnName = UUID)
     private Role role;
 
     @Override

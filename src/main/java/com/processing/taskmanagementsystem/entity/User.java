@@ -13,33 +13,35 @@ import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
 
+import static com.processing.taskmanagementsystem.utils.DBConstants.*;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tb_user")
+@Table(name = TB_USER)
 public class User extends BaseEntity {
 
-    @Column(name = "first_name", nullable = false)
+    @Column(name = FIRST_NAME, nullable = false)
     private String firstName;
 
-    @Column(name = "last_name", nullable = false)
+    @Column(name = LAST_NAME, nullable = false)
     private String lastName;
 
-    @Column(name = "username", nullable = false, unique = true)
+    @Column(name = USERNAME, nullable = false, unique = true)
     private String username;
 
-    @Column(name = "password", nullable = false)
+    @Column(name = PASSWORD, nullable = false)
     private String password;
 
-    @Column(name = "enabled", nullable = false)
+    @Column(name = ENABLED, nullable = false)
     private boolean enabled;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = USER, fetch = FetchType.LAZY)
     private List<TaskUser> taskUsers;
 
-    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = USER, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     @Fetch(FetchMode.JOIN)
     private List<UserRoles> userRoles;
 

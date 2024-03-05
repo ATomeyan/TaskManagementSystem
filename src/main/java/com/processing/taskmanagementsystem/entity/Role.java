@@ -13,12 +13,15 @@ import org.hibernate.annotations.FetchMode;
 
 import java.util.List;
 
+import static com.processing.taskmanagementsystem.utils.DBConstants.NAME;
+import static com.processing.taskmanagementsystem.utils.DBConstants.TB_ROLE;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity
-@Table(name = "tb_role")
+@Table(name = TB_ROLE)
 public class Role {
 
     @Id
@@ -26,7 +29,7 @@ public class Role {
     @Column(columnDefinition = "VARCHAR(36)")
     private String uuid;
 
-    @Column(name = "name", nullable = false)
+    @Column(name = NAME, nullable = false)
     private String name;
 
     @OneToMany(mappedBy = "role", fetch = FetchType.LAZY, cascade = CascadeType.ALL)

@@ -9,28 +9,30 @@ import org.apache.commons.lang3.builder.ToStringBuilder;
 import java.time.LocalDate;
 import java.util.List;
 
+import static com.processing.taskmanagementsystem.utils.DBConstants.*;
+
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
 @Builder
 @Entity
-@Table(name = "tb_task")
+@Table(name = TB_TASK)
 public class Task extends BaseEntity {
 
-    @Column(name = "title", nullable = false)
+    @Column(name = TITLE, nullable = false)
     private String title;
 
-    @Column(name = "description", nullable = false)
+    @Column(name = DESCRIPTION, nullable = false)
     private String description;
 
-    @Column(name = "due_date", nullable = false)
+    @Column(name = DUE_DATE, nullable = false)
     private LocalDate dueDate;
 
-    @Column(name = "priority", nullable = false)
+    @Column(name = PRIORITY, nullable = false)
     private String priority;
 
-    @Column(name = "status", nullable = false)
+    @Column(name = STATUS, nullable = false)
     private String status;
 
     @OneToMany(mappedBy = "task", fetch = FetchType.LAZY)

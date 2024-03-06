@@ -46,17 +46,17 @@ public class TaskMapper {
                 .build();
     }
 
-    public static Task mapUpdateRequestToEntity(TaskUpdateRequestDto taskUpdateRequestDto) {
-        Task task = setTaskEntity(taskUpdateRequestDto.getUuid(),
-                taskUpdateRequestDto.getTitle(),
-                taskUpdateRequestDto.getDescription(),
-                taskUpdateRequestDto.getDueDate(),
-                taskUpdateRequestDto.getPriority(),
-                taskUpdateRequestDto.getStatus());
+    public static Task mapUpdateRequestToEntity(Task existingTask, TaskUpdateRequestDto taskUpdateRequestDto) {
+        existingTask.setUuid(taskUpdateRequestDto.getUuid());
+        existingTask.setTitle(taskUpdateRequestDto.getTitle());
+        existingTask.setDescription(taskUpdateRequestDto.getDescription());
+        existingTask.setDueDate(taskUpdateRequestDto.getDueDate());
+        existingTask.setPriority(taskUpdateRequestDto.getPriority());
+        existingTask.setStatus(taskUpdateRequestDto.getStatus());
 
-        task.setUpdated(LocalDateTime.now());
+        existingTask.setUpdated(LocalDateTime.now());
 
-        return task;
+        return existingTask;
     }
 
     private static Task setTaskEntity(String uuid, String title, String description, LocalDate dueDate, String priority, String status) {

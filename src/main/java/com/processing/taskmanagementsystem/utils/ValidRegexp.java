@@ -9,5 +9,5 @@ public final class ValidRegexp {
     private ValidRegexp() {
     }
 
-    public static final String password = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d@$!%*?&]{8,12}$";
+    public static final String PASSWORD = "^(?=.*[a-z])(?=.*[A-Z])(?=.*\\d)[A-Za-z\\d@$!%*?&]{8,12}$";
 }

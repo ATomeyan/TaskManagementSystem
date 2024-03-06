@@ -1,10 +1,7 @@
 package com.processing.taskmanagementsystem.entity;
 
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -24,12 +21,14 @@ public class TaskUser {
     @Column(columnDefinition = "VARCHAR(36)")
     private String uuid;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = USER_UID, referencedColumnName = UUID)
+    @ToString.Exclude
     private User user;
 
-    @ManyToOne(cascade = CascadeType.ALL)
+    @ManyToOne
     @JoinColumn(name = TASK_UID, referencedColumnName = UUID)
+    @ToString.Exclude
     private Task task;
 
     @Override

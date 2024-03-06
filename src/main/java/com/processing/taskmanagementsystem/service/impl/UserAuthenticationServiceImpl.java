@@ -5,6 +5,7 @@ import com.processing.taskmanagementsystem.config.jwt.JwtProvider;
 import com.processing.taskmanagementsystem.dto.request.authentication.UserAuthenticationRequest;
 import com.processing.taskmanagementsystem.dto.request.authentication.UserRegistrationRequest;
 import com.processing.taskmanagementsystem.dto.request.update.authentication.ChangePasswordRequest;
+import com.processing.taskmanagementsystem.dto.request.update.authentication.UserUpdateRequest;
 import com.processing.taskmanagementsystem.dto.response.authentication.UserAuthenticationResponse;
 import com.processing.taskmanagementsystem.entity.Role;
 import com.processing.taskmanagementsystem.entity.User;
@@ -88,6 +89,11 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
         }
 
         return null;
+    }
+
+    @Override
+    public void updateUser(UserUpdateRequest userUpdateRequest) {
+
     }
 
     @Override

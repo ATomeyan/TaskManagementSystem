@@ -4,14 +4,12 @@ import ch.qos.logback.classic.Logger;
 import com.processing.taskmanagementsystem.dto.request.task.TaskRequestDto;
 import com.processing.taskmanagementsystem.dto.request.update.task.TaskUpdateRequestDto;
 import com.processing.taskmanagementsystem.dto.response.task.TaskResponseDto;
-import com.processing.taskmanagementsystem.dto.response.user.UserResponseDto;
 import com.processing.taskmanagementsystem.entity.Task;
 import com.processing.taskmanagementsystem.entity.User;
 import com.processing.taskmanagementsystem.exception.AssignedException;
 import com.processing.taskmanagementsystem.exception.InvalidObjectException;
 import com.processing.taskmanagementsystem.exception.NotFoundException;
 import com.processing.taskmanagementsystem.mapper.TaskMapper;
-import com.processing.taskmanagementsystem.mapper.UserMapper;
 import com.processing.taskmanagementsystem.repository.TaskRepository;
 import com.processing.taskmanagementsystem.service.TaskService;
 import com.processing.taskmanagementsystem.service.UserService;
@@ -22,6 +20,7 @@ import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
@@ -41,7 +40,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public TaskResponseDto createTask(TaskRequestDto taskRequestDto) {
 
         if (taskRequestDto == null) {
@@ -49,22 +48,27 @@ public class TaskServiceImpl implements TaskService {
             throw new InvalidObjectException("Task request is null.");
         }
 
-        String username = taskRequestDto.getUser().getUsername();
-        UserResponseDto byUsername = userService.findByUsername(username);
+        String username = taskRequestDto.getUsername();
 
-        if (byUsername == null) {
+        if (username == null || username.isBlank()) {
+            LOGGER.error("User name {} is invalid.", username);
+            throw new InvalidObjectException(String.format("User name {} is invalid. %s", username));
+        }
+
+        User userByUsername = userService.findUserByUsername(username);
+
+        if (userByUsername == null) {
             LOGGER.error("The user by username was not found.");
             throw new NotFoundException(String.format("The user by username was not found %s:", username));
         }
 
-        if (byUsername.getTaskResponse() != null) {
+        if (userByUsername.getTaskUsers().stream().iterator().hasNext()) {
             LOGGER.error("The task already assigned to this user.");
             throw new AssignedException(String.format("The task already assigned to this username %s:", username));
         }
 
-        User user = UserMapper.mapResponseToEntity(byUsername);
-        Task createdTask = TaskMapper.mapRequestDtoToEntity(user, taskRequestDto);
-        taskRepository.save(createdTask);
+        Task createdTask = TaskMapper.mapRequestDtoToEntity(userByUsername, taskRequestDto);
+        taskRepository.saveAndFlush(createdTask);
 
         LOGGER.info("Task created.");
 

@@ -1,6 +1,5 @@
 package com.processing.taskmanagementsystem.dto.request.task;
 
-import com.processing.taskmanagementsystem.dto.request.user.UserRequestDto;
 import jakarta.validation.constraints.NotBlank;
 import lombok.Builder;
 import lombok.Getter;
@@ -28,5 +27,5 @@ public class TaskRequestDto implements Serializable {
     @NotBlank
     private String status;
     @NotBlank
-    private UserRequestDto user;
+    private String username;
 }

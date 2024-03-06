@@ -19,6 +19,7 @@ public class UserMapper {
                 .uuid(user.getUuid())
                 .firstName(user.getFirstName())
                 .lastName(user.getLastName())
+                .username(user.getUsername())
                 .build();
     }
 

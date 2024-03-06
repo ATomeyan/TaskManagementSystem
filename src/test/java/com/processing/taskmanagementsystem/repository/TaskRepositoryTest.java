@@ -2,6 +2,7 @@ package com.processing.taskmanagementsystem.repository;
 
 import com.processing.taskmanagementsystem.entity.Task;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
@@ -42,5 +43,10 @@ class TaskRepositoryTest {
         taskRepository.save(task1);
         taskRepository.save(task2);
         taskRepository.save(task3);
+    }
+
+    @Test
+    public void addTask() {
+
     }
 }

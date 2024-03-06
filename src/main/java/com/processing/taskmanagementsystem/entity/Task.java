@@ -35,7 +35,7 @@ public class Task extends BaseEntity {
     @Column(name = STATUS, nullable = false)
     private String status;
 
-    @OneToMany(mappedBy = TASK, fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = TASK, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private List<TaskUser> taskUsers;
 
     @Override

@@ -84,9 +84,15 @@ public class TaskServiceImpl implements TaskService {
             throw new InvalidObjectException("Update request object is invalid.");
         }
 
-//        TaskResponseDto taskById = getTaskById(taskUpdateRequestDto.getUuid());
+        String uuid = taskUpdateRequestDto.getUuid();
+        Optional<Task> taskById = taskRepository.findById(uuid);
 
-        Task task = TaskMapper.mapUpdateRequestToEntity(taskUpdateRequestDto);
+        if (taskById.isEmpty()) {
+            LOGGER.error("Task by {} uuid was not found.", uuid);
+            throw new NotFoundException(String.format("Task by uuid was not found. %s", uuid));
+        }
+
+        Task task = TaskMapper.mapUpdateRequestToEntity(taskById.get(), taskUpdateRequestDto);
 
         Task updatedTask = taskRepository.save(task);
 

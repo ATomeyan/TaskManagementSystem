@@ -114,9 +114,9 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
         String alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
         StringBuilder password = new StringBuilder();
 
-        for (int i = 0; i < 12; i++) {
+        for (int i = 0; i < 12; i++)
             password.append(alphabet.charAt(random.nextInt(alphabet.length())));
-        }
+
 
         return new String(password);
     }

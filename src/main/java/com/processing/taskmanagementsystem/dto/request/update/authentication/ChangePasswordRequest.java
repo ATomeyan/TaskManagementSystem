@@ -19,7 +19,7 @@ public class ChangePasswordRequest implements Serializable {
     @NotBlank
     private String currentPassword;
     @NotBlank
-    @Pattern(message = "Password is not valid", regexp = ValidRegexp.password)
+    @Pattern(message = "Password is not valid", regexp = ValidRegexp.PASSWORD)
     @Size(min = 8, max = 12)
     private String newPassword;
     @NotBlank

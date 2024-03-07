@@ -38,14 +38,4 @@ public class UserMapper {
 
         return user;
     }
-
-    public static User mapResponseToEntity(UserResponseDto userResponseDto) {
-        User user = new User();
-
-        user.setUuid(userResponseDto.getUuid());
-        user.setFirstName(userResponseDto.getFirstName());
-        user.setLastName(userResponseDto.getLastName());
-
-        return user;
-    }
 }

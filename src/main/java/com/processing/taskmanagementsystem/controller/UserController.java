@@ -3,6 +3,7 @@ package com.processing.taskmanagementsystem.controller;
 import com.processing.taskmanagementsystem.dto.request.authentication.UserAuthenticationRequest;
 import com.processing.taskmanagementsystem.dto.request.authentication.UserRegistrationRequest;
 import com.processing.taskmanagementsystem.dto.request.update.authentication.ChangePasswordRequest;
+import com.processing.taskmanagementsystem.dto.request.update.authentication.UserUpdateRequest;
 import com.processing.taskmanagementsystem.dto.response.authentication.UserAuthenticationResponse;
 import com.processing.taskmanagementsystem.dto.response.user.UserResponseDto;
 import com.processing.taskmanagementsystem.service.UserAuthenticationService;
@@ -48,6 +49,13 @@ public class UserController {
         return new ResponseEntity<>(allUsersWithTask, HttpStatus.OK);
     }
 
+    @GetMapping("/{username}")
+    public ResponseEntity<UserResponseDto> getUserByUsername(@PathVariable String username) {
+        UserResponseDto byUsername = userService.findByUsername(username);
+
+        return new ResponseEntity<>(byUsername, HttpStatus.OK);
+    }
+
     @PostMapping("/register")
     public ResponseEntity<Void> register(@RequestBody @Valid UserRegistrationRequest userRegistration) {
         userAuthenticationService.createUser(userRegistration);
@@ -61,6 +69,13 @@ public class UserController {
         UserAuthenticationResponse authenticationResponse = userAuthenticationService.login(userAuthenticationRequest);
 
         return new ResponseEntity<>(authenticationResponse, HttpStatus.OK);
+    }
+
+    @PutMapping
+    public ResponseEntity<Void> updateUser(@RequestBody UserUpdateRequest userUpdateRequest) {
+        userAuthenticationService.updateUser(userUpdateRequest);
+
+        return new ResponseEntity<>(HttpStatus.OK);
     }
 
     @PatchMapping

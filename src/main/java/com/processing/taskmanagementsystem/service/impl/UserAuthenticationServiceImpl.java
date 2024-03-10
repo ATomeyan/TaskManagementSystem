@@ -11,6 +11,7 @@ import com.processing.taskmanagementsystem.entity.Role;
 import com.processing.taskmanagementsystem.entity.User;
 import com.processing.taskmanagementsystem.exception.AlreadyExistException;
 import com.processing.taskmanagementsystem.exception.InvalidObjectException;
+import com.processing.taskmanagementsystem.exception.NotFoundException;
 import com.processing.taskmanagementsystem.mapper.UserMapper;
 import com.processing.taskmanagementsystem.repository.UserRepository;
 import com.processing.taskmanagementsystem.service.RoleService;
@@ -24,10 +25,8 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.security.Principal;
-import java.security.SecureRandom;
 import java.time.LocalDateTime;
 import java.util.Optional;
-import java.util.Random;
 
 @Service
 @RequiredArgsConstructor
@@ -94,6 +93,21 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
     @Override
     public void updateUser(UserUpdateRequest userUpdateRequest) {
 
+        if (userUpdateRequest == null) {
+            LOGGER.error("Update request is invalid.");
+            throw new InvalidObjectException("Update request is invalid.");
+        }
+
+        String username = userUpdateRequest.getUsername();
+        Optional<User> userByUsername = userRepository.findUserByUsername(username);
+
+        if (userByUsername.isPresent()) {
+            User user = UserMapper.mapUpdateRequestToEntity(userByUsername.get(), userUpdateRequest);
+            userRepository.save(user);
+        } else {
+            LOGGER.error("User by {} username was not found.", username);
+            throw new NotFoundException(String.format("User by username was not found. %s", username));
+        }
     }
 
     @Override
@@ -113,17 +127,5 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
         user.setUpdated(LocalDateTime.now());
 
         userRepository.save(user);
-    }
-
-    private String passwordGenerator() {
-        Random random = new SecureRandom();
-        String alphabet = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz";
-        StringBuilder password = new StringBuilder();
-
-        for (int i = 0; i < 12; i++)
-            password.append(alphabet.charAt(random.nextInt(alphabet.length())));
-
-
-        return new String(password);
     }
 }

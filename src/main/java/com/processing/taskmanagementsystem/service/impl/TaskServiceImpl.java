@@ -58,7 +58,7 @@ public class TaskServiceImpl implements TaskService {
         User userByUsername = userService.findUserByUsername(username);
 
         if (userByUsername == null) {
-            LOGGER.error("The user by username was not found.");
+            LOGGER.error("The user by {} username was not found.", username);
             throw new NotFoundException(String.format("The user by username was not found %s:", username));
         }
 
@@ -68,13 +68,14 @@ public class TaskServiceImpl implements TaskService {
         }
 
         Task createdTask = TaskMapper.mapRequestDtoToEntity(userByUsername, taskRequestDto);
-        taskRepository.saveAndFlush(createdTask);
+        taskRepository.save(createdTask);
 
         LOGGER.info("Task created.");
 
         return TaskMapper.mapEntityToResponseDto(createdTask);
     }
 
+    //TODO Update task and user
     @Override
     @Transactional
     public TaskResponseDto updateTask(TaskUpdateRequestDto taskUpdateRequestDto) {
@@ -92,7 +93,14 @@ public class TaskServiceImpl implements TaskService {
             throw new NotFoundException(String.format("Task by uuid was not found. %s", uuid));
         }
 
-        Task task = TaskMapper.mapUpdateRequestToEntity(taskById.get(), taskUpdateRequestDto);
+        User userByUsername = userService.findUserByUsername(taskUpdateRequestDto.getUser().getUsername());
+
+        if (userByUsername == null) {
+            LOGGER.error("The user by username was not found.");
+            throw new NotFoundException("The user by username was not found.");
+        }
+
+        Task task = TaskMapper.mapUpdateRequestToEntity(userByUsername, taskById.get(), taskUpdateRequestDto);
 
         Task updatedTask = taskRepository.save(task);
 

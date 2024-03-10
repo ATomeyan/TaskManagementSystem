@@ -46,7 +46,7 @@ public class TaskMapper {
                 .build();
     }
 
-    public static Task mapUpdateRequestToEntity(Task existingTask, TaskUpdateRequestDto taskUpdateRequestDto) {
+    public static Task mapUpdateRequestToEntity(User user, Task existingTask, TaskUpdateRequestDto taskUpdateRequestDto) {
         existingTask.setUuid(taskUpdateRequestDto.getUuid());
         existingTask.setTitle(taskUpdateRequestDto.getTitle());
         existingTask.setDescription(taskUpdateRequestDto.getDescription());
@@ -56,6 +56,9 @@ public class TaskMapper {
 
         existingTask.setUpdated(LocalDateTime.now());
 
+        TaskUser taskUser = TaskUserMapper.mapRequestToEntity(existingTask, user);
+
+        existingTask.setTaskUsers(List.of(taskUser));
         return existingTask;
     }
 

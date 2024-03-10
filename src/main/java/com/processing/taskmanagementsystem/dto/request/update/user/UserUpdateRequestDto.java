@@ -6,9 +6,14 @@ import lombok.Setter;
 
 import java.io.Serializable;
 
-@Getter
-@Setter
+/**
+ * @author Artur Tomeyan
+ * @date 08.03.2024
+ */
+
 @Builder
+@Setter
+@Getter
 public class UserUpdateRequestDto implements Serializable {
 
     private String uuid;

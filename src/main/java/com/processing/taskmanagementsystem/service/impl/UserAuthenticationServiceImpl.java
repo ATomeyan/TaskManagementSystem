@@ -87,7 +87,7 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
             return UserAuthenticationResponse.builder().accessToken(accessToken).refreshToken(refreshToken).build();
         }
 
-        return null;
+        return (UserAuthenticationResponse) Optional.empty().get();
     }
 
     @Override

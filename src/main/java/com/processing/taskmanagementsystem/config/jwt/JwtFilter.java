@@ -14,6 +14,7 @@ import org.springframework.util.StringUtils;
 import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
+import java.util.Optional;
 
 @Component
 public class JwtFilter extends OncePerRequestFilter {
@@ -49,6 +50,6 @@ public class JwtFilter extends OncePerRequestFilter {
             return bearer.substring(7);
         }
 
-        return null;
+        return Optional.empty().toString();
     }
 }

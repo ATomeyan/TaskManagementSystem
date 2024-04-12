@@ -13,10 +13,10 @@ import java.io.Serializable;
 public class UserRequestDto implements Serializable {
 
     private String uuid;
-    @NotBlank
+    @NotBlank(message = "First name is mandatory")
     private String firstName;
-    @NotBlank
+    @NotBlank(message = "Last name is mandatory")
     private String lastName;
-    @NotBlank
+    @NotBlank(message = "Username is mandatory")
     private String username;
 }

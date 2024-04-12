@@ -12,8 +12,8 @@ import java.io.Serializable;
 @Builder
 public class UserAuthenticationRequest implements Serializable {
 
-    @NotBlank
+    @NotBlank(message = "username is mandatory")
     private String username;
-    @NotBlank
+    @NotBlank(message = "Password is mandatory")
     private String password;
 }

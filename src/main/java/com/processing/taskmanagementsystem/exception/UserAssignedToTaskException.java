@@ -1,6 +1,5 @@
 package com.processing.taskmanagementsystem.exception;
 
-
 public class UserAssignedToTaskException extends RuntimeException {
     public UserAssignedToTaskException() {
     }

@@ -15,8 +15,8 @@ import java.util.UUID;
 public class AdviserController extends ResponseEntityExceptionHandler {
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(AssignedException.class)
-    public ResponseEntity<ExceptionResponse> handleNotFoundException(AssignedException e, HttpServletRequest httpServletRequest) {
+    @ExceptionHandler(UserAssignedToTaskException.class)
+    public ResponseEntity<ExceptionResponse> handleNotFoundException(UserAssignedToTaskException e, HttpServletRequest httpServletRequest) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(
                 UUID.randomUUID(),
                 HttpStatus.BAD_REQUEST.getReasonPhrase(),
@@ -32,8 +32,8 @@ public class AdviserController extends ResponseEntityExceptionHandler {
     }
 
     @ResponseStatus(HttpStatus.BAD_REQUEST)
-    @ExceptionHandler(AlreadyExistException.class)
-    public ResponseEntity<ExceptionResponse> handleNotFoundException(AlreadyExistException e, HttpServletRequest httpServletRequest) {
+    @ExceptionHandler(UserAlreadyExistException.class)
+    public ResponseEntity<ExceptionResponse> handleNotFoundException(UserAlreadyExistException e, HttpServletRequest httpServletRequest) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(
                 UUID.randomUUID(),
                 HttpStatus.BAD_REQUEST.getReasonPhrase(),

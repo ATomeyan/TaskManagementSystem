@@ -9,7 +9,7 @@ import com.processing.taskmanagementsystem.dto.request.update.authentication.Use
 import com.processing.taskmanagementsystem.dto.response.authentication.UserAuthenticationResponse;
 import com.processing.taskmanagementsystem.entity.Role;
 import com.processing.taskmanagementsystem.entity.User;
-import com.processing.taskmanagementsystem.exception.AlreadyExistException;
+import com.processing.taskmanagementsystem.exception.UserAlreadyExistException;
 import com.processing.taskmanagementsystem.exception.InvalidObjectException;
 import com.processing.taskmanagementsystem.exception.NotFoundException;
 import com.processing.taskmanagementsystem.mapper.UserMapper;
@@ -52,7 +52,7 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
 
         if (userByUsername.isPresent()) {
             LOGGER.error("User by username {} already exist:", userRegistration.getUsername());
-            throw new AlreadyExistException(String.format("User by username already exist: %s", userRegistration.getUsername()));
+            throw new UserAlreadyExistException(String.format("User by username already exist: %s", userRegistration.getUsername()));
         }
 
         Role roleByName = roleService.getRoleByName(userRegistration.getRole());

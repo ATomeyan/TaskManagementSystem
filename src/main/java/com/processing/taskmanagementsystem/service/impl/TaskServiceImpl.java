@@ -6,7 +6,7 @@ import com.processing.taskmanagementsystem.dto.request.update.task.TaskUpdateReq
 import com.processing.taskmanagementsystem.dto.response.task.TaskResponseDto;
 import com.processing.taskmanagementsystem.entity.Task;
 import com.processing.taskmanagementsystem.entity.User;
-import com.processing.taskmanagementsystem.exception.AssignedException;
+import com.processing.taskmanagementsystem.exception.UserAssignedToTaskException;
 import com.processing.taskmanagementsystem.exception.InvalidObjectException;
 import com.processing.taskmanagementsystem.exception.NotFoundException;
 import com.processing.taskmanagementsystem.mapper.TaskMapper;
@@ -64,7 +64,7 @@ public class TaskServiceImpl implements TaskService {
 
         if (userByUsername.getTaskUsers().stream().iterator().hasNext()) {
             LOGGER.error("The task already assigned to this user.");
-            throw new AssignedException(String.format("The task already assigned to this username %s:", username));
+            throw new UserAssignedToTaskException(String.format("The task already assigned to this username %s:", username));
         }
 
         Task createdTask = TaskMapper.mapRequestDtoToEntity(userByUsername, taskRequestDto);

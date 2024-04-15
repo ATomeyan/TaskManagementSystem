@@ -61,6 +61,7 @@ public class TaskController {
 
         return new ResponseEntity<>(taskResponseDto, HttpStatus.OK);
     }
+
     @DeleteMapping("/{uuid}")
     public ResponseEntity<Boolean> deleteTaskByUid(@PathVariable String uuid) {
         boolean deleteTask = taskService.deleteTask(uuid);

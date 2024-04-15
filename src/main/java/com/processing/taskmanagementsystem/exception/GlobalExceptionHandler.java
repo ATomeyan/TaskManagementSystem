@@ -20,8 +20,8 @@ public class GlobalExceptionHandler {
 
     @ResponseStatus(BAD_REQUEST)
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ExceptionResponse> handleMethodArgumentNotValid(MethodArgumentNotValidException ex, HttpServletRequest httpServletRequest) {
-        BindingResult result = ex.getBindingResult();
+    public ResponseEntity<ExceptionResponse> handleMethodArgumentNotValid(MethodArgumentNotValidException e, HttpServletRequest httpServletRequest) {
+        BindingResult result = e.getBindingResult();
         String errorMsg = result.getFieldErrors().stream().iterator().next().getDefaultMessage();
 
         ExceptionResponse response = new ExceptionResponse(

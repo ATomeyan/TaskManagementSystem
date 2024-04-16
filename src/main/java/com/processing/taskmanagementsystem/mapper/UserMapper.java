@@ -8,7 +8,7 @@ import com.processing.taskmanagementsystem.entity.User;
 import com.processing.taskmanagementsystem.entity.UserRoles;
 
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Collections;
 
 public class UserMapper {
 
@@ -24,7 +24,7 @@ public class UserMapper {
                 .build();
     }
 
-    public static User mapRegistrationRequestToEntity(Role roleByName, UserRegistrationRequest userRegistration) {
+    public static User mapRegistrationRequestToEntity(Role role, UserRegistrationRequest userRegistration) {
         User user = new User();
 
         user.setUuid(userRegistration.getUuid());
@@ -34,14 +34,13 @@ public class UserMapper {
         user.setEnabled(true);
         user.setCreated(LocalDateTime.now());
 
-        UserRoles userRoles = UserRoleMapper.mapRequestToEntity(roleByName, user);
-        user.setUserRoles(List.of(userRoles));
+        UserRoles userRoles = UserRoleMapper.mapRequestToEntity(role, user);
+        user.setUserRoles(Collections.singletonList(userRoles));
 
         return user;
     }
 
     public static User mapUpdateRequestToEntity(User user, UserUpdateRequest userUpdateRequest) {
-
         user.setUuid(userUpdateRequest.getUuid());
         user.setFirstName(userUpdateRequest.getFirstName());
         user.setLastName(userUpdateRequest.getLastName());

@@ -9,7 +9,7 @@ import com.processing.taskmanagementsystem.entity.User;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.List;
+import java.util.Collections;
 
 public class TaskMapper {
 
@@ -17,8 +17,8 @@ public class TaskMapper {
     }
 
     public static Task mapRequestDtoToEntity(User user, TaskRequestDto taskRequestDto) {
-
-        Task task = setTaskEntity(taskRequestDto.getUuid(),
+        Task task = createTaskEntity(
+                taskRequestDto.getUuid(),
                 taskRequestDto.getTitle(),
                 taskRequestDto.getDescription(),
                 taskRequestDto.getDueDate(),
@@ -26,15 +26,14 @@ public class TaskMapper {
                 taskRequestDto.getStatus());
 
         task.setCreated(LocalDateTime.now());
-
         TaskUser taskUser = TaskUserMapper.mapRequestToEntity(task, user);
-        task.setTaskUsers(List.of(taskUser));
+        task.setTaskUsers(Collections.singletonList(taskUser));
 
         return task;
     }
 
     public static TaskResponseDto mapEntityToResponseDto(Task task) {
-
+        TaskUser taskUser = task.getTaskUsers().stream().findFirst().orElseThrow();
         return TaskResponseDto.builder()
                 .uuid(task.getUuid())
                 .title(task.getTitle())
@@ -42,11 +41,11 @@ public class TaskMapper {
                 .dueDate(task.getDueDate())
                 .priority(task.getPriority())
                 .status(task.getStatus())
-                .userResponseDto(UserMapper.mapEntityToUserResponse(task.getTaskUsers().stream().iterator().next().getUser()))
+                .userResponseDto(UserMapper.mapEntityToUserResponse(taskUser.getUser()))
                 .build();
     }
 
-    public static Task mapUpdateRequestToEntity(User user, Task existingTask, TaskUpdateRequestDto taskUpdateRequestDto) {
+    public static Task mapUpdateRequestToEntity(Task existingTask, TaskUpdateRequestDto taskUpdateRequestDto) {
         existingTask.setUuid(taskUpdateRequestDto.getUuid());
         existingTask.setTitle(taskUpdateRequestDto.getTitle());
         existingTask.setDescription(taskUpdateRequestDto.getDescription());
@@ -56,13 +55,10 @@ public class TaskMapper {
 
         existingTask.setUpdated(LocalDateTime.now());
 
-        TaskUser taskUser = TaskUserMapper.mapRequestToEntity(existingTask, user);
-
-        existingTask.setTaskUsers(List.of(taskUser));
         return existingTask;
     }
 
-    private static Task setTaskEntity(String uuid, String title, String description, LocalDate dueDate, String priority, String status) {
+    private static Task createTaskEntity(String uuid, String title, String description, LocalDate dueDate, String priority, String status) {
         Task task = new Task();
 
         task.setUuid(uuid);

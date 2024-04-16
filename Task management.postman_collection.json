@@ -343,11 +343,21 @@
 				{
 					"name": "Update task",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b21leWFuIiwiZmlyc3ROYW1lIjoiQXJ0dXIiLCJsYXN0TmFtZSI6IlRvbWV5YW4iLCJleHAiOjE3MTMyNzIyOTF9.YW5kvDDQACdPA4e0q6NannLn3lzhCejdGW8z4AAvnuysNT71Vx3JHsS3HTf4zuqwrsHw7hp_8k542S2ya_1RLQ",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PUT",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"BTN\",\r\n    \"description\": \"asdsg\",\r\n    \"startDate\": \"2024-04-12\",\r\n    \"dueDate\": \"2024-04-20\",\r\n    \"priority\": \"1\",\r\n    \"status\": \"To do\",\r\n    \"username\": \"tomeyan.artur\"\r\n}",
+							"raw": "{\r\n    \"uuid\": \"0769b694-3a99-4f36-8e93-49fcd44883dc\",\r\n    \"title\": \"BTN color\",\r\n    \"description\": \"asdsg\",\r\n    \"startDate\": \"2024-04-12\",\r\n    \"dueDate\": \"2024-04-22\",\r\n    \"priority\": \"1\",\r\n    \"status\": \"To do\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

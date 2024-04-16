@@ -1,6 +1,5 @@
 package com.processing.taskmanagementsystem.dto.request.update.task;
 
-import com.processing.taskmanagementsystem.dto.request.update.user.UserUpdateRequestDto;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.Setter;
@@ -19,5 +18,4 @@ public class TaskUpdateRequestDto implements Serializable {
     private LocalDate dueDate;
     private String priority;
     private String status;
-    private UserUpdateRequestDto user;
 }

@@ -75,7 +75,6 @@ public class TaskServiceImpl implements TaskService {
         return TaskMapper.mapEntityToResponseDto(createdTask);
     }
 
-    //TODO Update task and user
     @Override
     @Transactional
     public TaskResponseDto updateTask(TaskUpdateRequestDto taskUpdateRequestDto) {
@@ -93,14 +92,7 @@ public class TaskServiceImpl implements TaskService {
             throw new NotFoundException(String.format("Task by uuid was not found. %s", uuid));
         }
 
-        User userByUsername = userService.findUserByUsername(taskUpdateRequestDto.getUser().getUsername());
-
-        if (userByUsername == null) {
-            LOGGER.error("The user by username was not found.");
-            throw new NotFoundException("The user by username was not found.");
-        }
-
-        Task task = TaskMapper.mapUpdateRequestToEntity(userByUsername, taskById.get(), taskUpdateRequestDto);
+        Task task = TaskMapper.mapUpdateRequestToEntity(taskById.get(), taskUpdateRequestDto);
 
         Task updatedTask = taskRepository.save(task);
 

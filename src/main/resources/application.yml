@@ -16,14 +16,14 @@ spring:
     change-log: classpath:db/changelog/db.changelog-master.yaml
 server:
   port: 8081
-logging:
-  file:
-    name: logs/task-log.log
-  level:
-    root: info
-  pattern:
-    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5relative [%thread] %-5level %logger{35} - %msg%n"
-    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-3level-%logger{35}-%msg%n"
+#logging:
+#  file:
+#    name: logs/task-log.log
+#  level:
+#    root: info
+#  pattern:
+#    console: "%d{yyyy-MM-dd HH:mm:ss.SSS} %-5relative [%thread] %-5level %logger{35} - %msg%n"
+#    file: "%d{yyyy-MM-dd HH:mm:ss.SSS} [%thread] %-3level-%logger{35}-%msg%n"
 #    console: "%(%d{ISO8601}) %highlight(%-5level) [%blue(%t)] %yellow(%C{1.}): %msg%n%throwable"
 security:
   jwt:

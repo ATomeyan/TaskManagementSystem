@@ -4,18 +4,15 @@ import ch.qos.logback.classic.Logger;
 import com.processing.taskmanagementsystem.entity.User;
 import io.jsonwebtoken.*;
 import jakarta.annotation.PostConstruct;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
 
 import java.util.Base64;
 import java.util.Date;
+import java.util.function.Function;
 
 @Component
-@Slf4j
 public class JwtProvider {
 
     private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(JwtProvider.class);
@@ -25,10 +22,11 @@ public class JwtProvider {
     private Long refreshTokenExpirationTime;
     @Value("${security.jwt.secret-key}")
     private String secretKey;
+    private String encodedKey;
 
     @PostConstruct
     protected void init() {
-        secretKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
+        this.encodedKey = Base64.getEncoder().encodeToString(secretKey.getBytes());
     }
 
     public String accessTokenGenerator(User user) {
@@ -39,14 +37,9 @@ public class JwtProvider {
         return generateToken(user, refreshTokenExpirationTime);
     }
 
-    public String getLoginFromJwtToken(String token) {
-        Claims claims = Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token).getBody();
-        return claims.getSubject();
-    }
-
     public boolean validateToken(String token) {
         try {
-            Jwts.parser().setSigningKey(secretKey).parseClaimsJws(token);
+            Jwts.parser().setSigningKey(encodedKey).parseClaimsJws(token);
             return true;
         } catch (ExpiredJwtException e) {
             LOGGER.error("Token expired.");
@@ -63,20 +56,35 @@ public class JwtProvider {
         return false;
     }
 
+    public String extractUsername(String token) {
+        return extractClaim(token, Claims::getSubject);
+    }
+
+    public <T> T extractClaim(String token, Function<Claims, T> claimsResolver) {
+        final Claims claims = extractAllClaims(token);
+        return claimsResolver.apply(claims);
+    }
+
+    private Claims extractAllClaims(String token) {
+        return Jwts
+                .parser()
+                .setSigningKey(encodedKey)
+                .parseClaimsJws(token)
+                .getBody();
+    }
+
     private String generateToken(User user, Long expiration) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
         Claims claims = Jwts.claims().setSubject(user.getUsername());
         claims.put("firstName", user.getFirstName());
         claims.put("lastName", user.getLastName());
-        claims.put("authorities", authentication.getAuthorities());
         Date date = new Date();
         Date validate = new Date(date.getTime() + expiration);
 
         return Jwts.builder()
                 .setClaims(claims)
                 .setExpiration(validate)
-                .signWith(SignatureAlgorithm.HS512, secretKey)
+                .signWith(SignatureAlgorithm.HS512, encodedKey)
                 .compact();
     }
 }

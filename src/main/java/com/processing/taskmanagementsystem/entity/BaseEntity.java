@@ -5,8 +5,9 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.SourceType;
+import org.hibernate.annotations.UpdateTimestamp;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
 import java.time.LocalDateTime;
@@ -27,11 +28,11 @@ public class BaseEntity {
     @Column(columnDefinition = "VARCHAR(36)")
     private String uuid;
 
-    @Column(name = CRATED, nullable = false)
-    @CreatedDate
+    @Column(name = CRATED, nullable = false, updatable = false)
+    @CreationTimestamp(source = SourceType.DB)
     private LocalDateTime created;
 
     @Column(name = UPDATED)
-    @LastModifiedDate
+    @UpdateTimestamp
     private LocalDateTime updated;
 }

@@ -8,7 +8,6 @@ import com.processing.taskmanagementsystem.entity.TaskUser;
 import com.processing.taskmanagementsystem.entity.User;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.Collections;
 
 public class TaskMapper {
@@ -25,7 +24,6 @@ public class TaskMapper {
                 taskRequestDto.getPriority(),
                 taskRequestDto.getStatus());
 
-        task.setCreated(LocalDateTime.now());
         TaskUser taskUser = TaskUserMapper.mapRequestToEntity(task, user);
         task.setTaskUsers(Collections.singletonList(taskUser));
 
@@ -52,8 +50,6 @@ public class TaskMapper {
         existingTask.setDueDate(taskUpdateRequestDto.getDueDate());
         existingTask.setPriority(taskUpdateRequestDto.getPriority());
         existingTask.setStatus(taskUpdateRequestDto.getStatus());
-
-        existingTask.setUpdated(LocalDateTime.now());
 
         return existingTask;
     }

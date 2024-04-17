@@ -226,7 +226,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b21leWFuIiwiZmlyc3ROYW1lIjoiQXJ0dXIiLCJsYXN0TmFtZSI6IlRvbWV5YW4iLCJhdXRob3JpdGllcyI6W3siYXV0aG9yaXR5IjoiUk9MRV9BTk9OWU1PVVMifV0sImV4cCI6MTcxMjkzMDkxM30.ESjJmdmfwtzG6xeQY2Sa58UxB3tThzo6c5u5BTKceP2uJ_9W2baTpm1Bwi_wj1KSQdcgHH_Y9TNpd-SsmXaz9A",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b21leWFuIiwiZmlyc3ROYW1lIjoiQXJ0dXIiLCJsYXN0TmFtZSI6IlRvbWV5YW4iLCJleHAiOjE3MTMzNDY1MjB9.Xn3-7uiuLEtAi-7t917IxJ1w5pM19dp1whWWd8O22GqTVfOuGxka9HuZZiOtpfPt9QxTuUS5TMxBlchn4flF_Q",
 									"type": "string"
 								}
 							]
@@ -235,7 +235,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"BTN\",\r\n    \"description\": \"asdsg\",\r\n    \"startDate\": \"2024-04-12\",\r\n    \"dueDate\": \"2024-04-20\",\r\n    \"priority\": \"1\",\r\n    \"status\": \"To do\",\r\n    \"username\": \"tomeyan.artur\"\r\n}",
+							"raw": "{\r\n    \"title\": \"BTN\",\r\n    \"description\": \"asdsg\",\r\n    \"startDate\": \"2024-04-12\",\r\n    \"dueDate\": \"2024-04-20\",\r\n    \"priority\": \"1\",\r\n    \"status\": \"To do\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -348,7 +348,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b21leWFuIiwiZmlyc3ROYW1lIjoiQXJ0dXIiLCJsYXN0TmFtZSI6IlRvbWV5YW4iLCJleHAiOjE3MTMyNzIyOTF9.YW5kvDDQACdPA4e0q6NannLn3lzhCejdGW8z4AAvnuysNT71Vx3JHsS3HTf4zuqwrsHw7hp_8k542S2ya_1RLQ",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b21leWFuIiwiZmlyc3ROYW1lIjoiQXJ0dXIiLCJsYXN0TmFtZSI6IlRvbWV5YW4iLCJleHAiOjE3MTMzNDcxNDh9.gMqjTDJST1yib-Fad_5WfmmXOmKHuQKElSozFydTta5M_7Q64Nj9U1W_L3-mJXaRdeJ0LsdvVQ5BOWmbB9tJww",
 									"type": "string"
 								}
 							]
@@ -357,7 +357,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"uuid\": \"0769b694-3a99-4f36-8e93-49fcd44883dc\",\r\n    \"title\": \"BTN color\",\r\n    \"description\": \"asdsg\",\r\n    \"startDate\": \"2024-04-12\",\r\n    \"dueDate\": \"2024-04-22\",\r\n    \"priority\": \"1\",\r\n    \"status\": \"To do\"\r\n}",
+							"raw": "{\r\n    \"uuid\": \"f83caf2e-4ac2-4db1-a18a-408b2e231753\",\r\n    \"title\": \"BTN color\",\r\n    \"description\": \"asdsg\",\r\n    \"startDate\": \"2024-04-12\",\r\n    \"dueDate\": \"2024-04-22\",\r\n    \"priority\": \"1\",\r\n    \"status\": \"To do\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

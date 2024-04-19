@@ -35,6 +35,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/v1/user/login").permitAll()
                         .requestMatchers(HttpMethod.PATCH, "/api/v1/user/**").authenticated()
                         .requestMatchers(HttpMethod.POST, "/api/v1/task/**").hasRole("ADMIN")
+                        .requestMatchers(HttpMethod.POST, "/api/v1/task-user").authenticated()
                         .requestMatchers(HttpMethod.GET, "/api/v1/task/**").hasAnyRole("ADMIN", "USER")
                         .requestMatchers(HttpMethod.PUT, "/api/v1/task/**").hasAnyRole("ADMIN", "USER")
                         .requestMatchers(HttpMethod.DELETE, "/api/v1/task/**").hasRole("ADMIN")

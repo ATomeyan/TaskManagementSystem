@@ -4,34 +4,25 @@ import com.processing.taskmanagementsystem.dto.request.task.TaskRequestDto;
 import com.processing.taskmanagementsystem.dto.request.update.task.TaskUpdateRequestDto;
 import com.processing.taskmanagementsystem.dto.response.task.TaskResponseDto;
 import com.processing.taskmanagementsystem.entity.Task;
-import com.processing.taskmanagementsystem.entity.TaskUser;
-import com.processing.taskmanagementsystem.entity.User;
 
 import java.time.LocalDate;
-import java.util.Collections;
 
 public class TaskMapper {
 
     private TaskMapper() {
     }
 
-    public static Task mapRequestDtoToEntity(User user, TaskRequestDto taskRequestDto) {
-        Task task = createTaskEntity(
+    public static Task mapRequestDtoToEntity(TaskRequestDto taskRequestDto) {
+        return createTaskEntity(
                 taskRequestDto.getUuid(),
                 taskRequestDto.getTitle(),
                 taskRequestDto.getDescription(),
                 taskRequestDto.getDueDate(),
                 taskRequestDto.getPriority(),
                 taskRequestDto.getStatus());
-
-        TaskUser taskUser = TaskUserMapper.mapRequestToEntity(task, user);
-        task.setTaskUsers(Collections.singletonList(taskUser));
-
-        return task;
     }
 
     public static TaskResponseDto mapEntityToResponseDto(Task task) {
-        TaskUser taskUser = task.getTaskUsers().stream().findFirst().orElseThrow();
         return TaskResponseDto.builder()
                 .uuid(task.getUuid())
                 .title(task.getTitle())
@@ -39,7 +30,6 @@ public class TaskMapper {
                 .dueDate(task.getDueDate())
                 .priority(task.getPriority())
                 .status(task.getStatus())
-                .userResponseDto(UserMapper.mapEntityToUserResponse(taskUser.getUser()))
                 .build();
     }
 

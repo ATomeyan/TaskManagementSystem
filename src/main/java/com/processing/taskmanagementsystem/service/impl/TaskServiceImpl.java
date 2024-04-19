@@ -5,15 +5,11 @@ import com.processing.taskmanagementsystem.dto.request.task.TaskRequestDto;
 import com.processing.taskmanagementsystem.dto.request.update.task.TaskUpdateRequestDto;
 import com.processing.taskmanagementsystem.dto.response.task.TaskResponseDto;
 import com.processing.taskmanagementsystem.entity.Task;
-import com.processing.taskmanagementsystem.entity.User;
-import com.processing.taskmanagementsystem.exception.UserAssignedToTaskException;
 import com.processing.taskmanagementsystem.exception.InvalidObjectException;
 import com.processing.taskmanagementsystem.exception.NotFoundException;
 import com.processing.taskmanagementsystem.mapper.TaskMapper;
 import com.processing.taskmanagementsystem.repository.TaskRepository;
 import com.processing.taskmanagementsystem.service.TaskService;
-import com.processing.taskmanagementsystem.service.UserService;
-import lombok.extern.slf4j.Slf4j;
 import org.slf4j.LoggerFactory;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -27,16 +23,13 @@ import java.util.List;
 import java.util.Optional;
 
 @Service
-@Slf4j
 public class TaskServiceImpl implements TaskService {
 
     private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(TaskService.class);
     private final TaskRepository taskRepository;
-    private final UserService userService;
 
-    public TaskServiceImpl(TaskRepository taskRepository, UserService userService) {
+    public TaskServiceImpl(TaskRepository taskRepository) {
         this.taskRepository = taskRepository;
-        this.userService = userService;
     }
 
     @Override
@@ -48,26 +41,7 @@ public class TaskServiceImpl implements TaskService {
             throw new InvalidObjectException("Task request is null.");
         }
 
-        String username = taskRequestDto.getUsername();
-
-        if (username == null || username.isBlank()) {
-            LOGGER.error("User name {} is invalid.", username);
-            throw new InvalidObjectException(String.format("User name {} is invalid. %s", username));
-        }
-
-        User userByUsername = userService.findUserByUsername(username);
-
-        if (userByUsername == null) {
-            LOGGER.error("The user by {} username was not found.", username);
-            throw new NotFoundException(String.format("The user by username was not found %s:", username));
-        }
-
-        if (userByUsername.getTaskUsers().stream().iterator().hasNext()) {
-            LOGGER.error("The task already assigned to this user.");
-            throw new UserAssignedToTaskException(String.format("The task already assigned to this username %s:", username));
-        }
-
-        Task createdTask = TaskMapper.mapRequestDtoToEntity(userByUsername, taskRequestDto);
+        Task createdTask = TaskMapper.mapRequestDtoToEntity(taskRequestDto);
         taskRepository.save(createdTask);
 
         LOGGER.info("Task created.");

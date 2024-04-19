@@ -212,6 +212,45 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Assign task to user",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b21leWFuIiwiZmlyc3ROYW1lIjoiQXJ0dXIiLCJsYXN0TmFtZSI6IlRvbWV5YW4iLCJleHAiOjE3MTM1MTIyODB9.1rKymIQ8Y_jD5p882a9RW_VjkTIxmJznZWtPGPUTGopwsL2bxVaf1q_CAldQUrn-Biwu4Z2x72SO0PYG4APj1g",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"userUid\": \"7df5442a-8fb9-4bb4-93c6-c0451d66a57e\",\r\n    \"taskUid\": \"1648aaee-58ab-42ff-8fdc-6aa3e7841def\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/api/v1/task-user",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"task-user"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		},
@@ -226,7 +265,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b21leWFuIiwiZmlyc3ROYW1lIjoiQXJ0dXIiLCJsYXN0TmFtZSI6IlRvbWV5YW4iLCJleHAiOjE3MTMzNDY1MjB9.Xn3-7uiuLEtAi-7t917IxJ1w5pM19dp1whWWd8O22GqTVfOuGxka9HuZZiOtpfPt9QxTuUS5TMxBlchn4flF_Q",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b21leWFuIiwiZmlyc3ROYW1lIjoiQXJ0dXIiLCJsYXN0TmFtZSI6IlRvbWV5YW4iLCJleHAiOjE3MTM0Mzc2NjJ9.I9lPIiGtbMHJBE9VQKRrRjBc7XxgJ2b0z1_vHXWXTedGHR2GxnA9K0edbQuQPnHe6DzWjNl-rUy8q-qkFHp-qg",
 									"type": "string"
 								}
 							]

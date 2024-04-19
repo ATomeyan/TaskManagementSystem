@@ -1,6 +1,10 @@
 package com.processing.taskmanagementsystem.mapper;
 
-import com.processing.taskmanagementsystem.entity.*;
+import com.processing.taskmanagementsystem.entity.Task;
+import com.processing.taskmanagementsystem.entity.TaskUser;
+import com.processing.taskmanagementsystem.entity.User;
+
+import java.util.List;
 
 public class TaskUserMapper {
 
@@ -12,6 +16,9 @@ public class TaskUserMapper {
 
         taskUser.setTask(task);
         taskUser.setUser(user);
+
+        task.setTaskUsers(List.of(taskUser));
+        user.setTaskUsers(List.of(taskUser));
 
         return taskUser;
     }

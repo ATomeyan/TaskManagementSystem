@@ -80,7 +80,7 @@ class TaskRepositoryTest {
 
         Optional<Task> byId = taskRepository.findById(task.getUuid());
 
-        assertThat(byId.get()).isNotNull();
+        assertThat(byId).isPresent();
     }
 
     @Test

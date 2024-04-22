@@ -50,27 +50,39 @@ public class TaskUserServiceImpl implements TaskUserService {
 
         Optional<User> user = userRepository.findById(userUid);
 
-        if (user.isEmpty()) {
-            LOGGER.error("The user by {} uid was not found.", user);
-            throw new NotFoundException(String.format("The user by uid was not found %s:", user));
-        }
+        ensureUserExists(user);
 
         boolean hasTask = user.get().getTaskUsers().stream().iterator().hasNext();
-        if (hasTask) {
-            LOGGER.error("The task already assigned to this user.");
-            throw new UserAssignedToTaskException(String.format("The task already assigned to this user %s:", user));
-        }
+        ensureUserHasNoTasks(hasTask, user);
 
         Optional<Task> task = taskRepository.findById(taskUid);
 
-        if (task.isEmpty()) {
-            LOGGER.error("The task by {} uid was not found.", task);
-            throw new NotFoundException(String.format("The task by uid was not found %s:", task));
-        }
+        ensureTaskExists(task);
 
         TaskUser taskUser = TaskUserMapper.mapRequestToEntity(task.get(), user.get());
         taskUserRepository.save(taskUser);
 
         LOGGER.info("Task successfully assigned to user.");
+    }
+
+    private void ensureUserHasNoTasks(boolean hasTask, Optional<User> user) {
+        if (hasTask) {
+            LOGGER.error("The task already assigned to this user.");
+            throw new UserAssignedToTaskException(String.format("The task already assigned to this user %s:", user));
+        }
+    }
+
+    private void ensureUserExists(Optional<User> user) {
+        if (user.isEmpty()) {
+            LOGGER.error("The user by {} uid was not found.", user);
+            throw new NotFoundException(String.format("The user by uid was not found %s:", user));
+        }
+    }
+
+    private void ensureTaskExists(Optional<Task> task) {
+        if (task.isEmpty()) {
+            LOGGER.error("The task by {} uid was not found.", task);
+            throw new NotFoundException(String.format("The task by uid was not found %s:", task));
+        }
     }
 }

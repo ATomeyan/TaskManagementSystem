@@ -68,4 +68,12 @@ public class TaskController {
 
         return new ResponseEntity<>(deleteTask, HttpStatus.OK);
     }
+
+    @GetMapping("/priority")
+    public ResponseEntity<List<TaskResponseDto>> getTasksSortedByPriority(@RequestParam(defaultValue = "0") Integer pageNo,
+                                                                    @RequestParam(defaultValue = "10") Integer pageSize) {
+        List<TaskResponseDto> allTasksSortedByPriority = taskService.getAllTasksSortedByPriority(pageNo, pageSize);
+
+        return new ResponseEntity<>(allTasksSortedByPriority, HttpStatus.OK);
+    }
 }

@@ -36,10 +36,7 @@ public class TaskServiceImpl implements TaskService {
     @Transactional(propagation = Propagation.REQUIRES_NEW)
     public TaskResponseDto createTask(TaskRequestDto taskRequestDto) {
 
-        if (taskRequestDto == null) {
-            LOGGER.error("Task request is null.");
-            throw new InvalidObjectException("Task request is null.");
-        }
+        validateTaskRequest(taskRequestDto);
 
         Task createdTask = TaskMapper.mapRequestDtoToEntity(taskRequestDto);
         taskRepository.save(createdTask);
@@ -53,10 +50,7 @@ public class TaskServiceImpl implements TaskService {
     @Transactional
     public TaskResponseDto updateTask(TaskUpdateRequestDto taskUpdateRequestDto) {
 
-        if (taskUpdateRequestDto == null) {
-            LOGGER.error("Update request object is invalid.");
-            throw new InvalidObjectException("Update request object is invalid.");
-        }
+        validateUpdateRequest(taskUpdateRequestDto);
 
         String uuid = taskUpdateRequestDto.getUuid();
         Optional<Task> taskById = taskRepository.findById(uuid);
@@ -113,8 +107,8 @@ public class TaskServiceImpl implements TaskService {
         Page<Task> tasksByCriteria = taskRepository.findTasksByCriteria(criteria, pageable);
 
         if (tasksByCriteria.isEmpty()) {
-            LOGGER.error("Task does not found.");
-            throw new NotFoundException("Task does not found.");
+            LOGGER.error("Task by {} does not found.", criteria);
+            throw new NotFoundException(String.format("Task does not found. %S", criteria));
         }
 
         return tasksByCriteria.stream().map(TaskMapper::mapEntityToResponseDto).toList();
@@ -123,10 +117,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public boolean deleteTask(String uuid) {
 
-        if (uuid == null || uuid.isBlank()) {
-            LOGGER.error("UUID {} is not valid.", uuid);
-            throw new InvalidObjectException(String.format("UUID is not valid. %s", uuid));
-        }
+        validateUuid(uuid);
 
         Optional<Task> byId = taskRepository.findById(uuid);
 
@@ -137,6 +128,41 @@ public class TaskServiceImpl implements TaskService {
         } else {
             LOGGER.error("Task by {} uid was not found.", uuid);
             throw new NotFoundException(String.format("Task by uid was not found. %s", uuid));
+        }
+    }
+
+    @Override
+    public List<TaskResponseDto> getAllTasksSortedByPriority(Integer pageNo, Integer pageSize) {
+        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by("priority").ascending());
+
+        Page<Task> allTasksSortedByPriority = taskRepository.findAll(pageable);
+
+        if (allTasksSortedByPriority.isEmpty()) {
+            LOGGER.error("Tasks does not found.");
+            throw new NotFoundException("Tasks does not found.");
+        }
+
+        return allTasksSortedByPriority.stream().map(TaskMapper::mapEntityToResponseDto).toList();
+    }
+
+    private void validateTaskRequest(TaskRequestDto taskRequestDto) {
+        if (taskRequestDto == null) {
+            LOGGER.error("Task request is null.");
+            throw new InvalidObjectException("Task request is null.");
+        }
+    }
+
+    private void validateUpdateRequest(TaskUpdateRequestDto taskUpdateRequestDto) {
+        if (taskUpdateRequestDto == null) {
+            LOGGER.error("Update request object is invalid.");
+            throw new InvalidObjectException("Update request object is invalid.");
+        }
+    }
+
+    private void validateUuid(String uuid) {
+        if (uuid == null || uuid.isBlank()) {
+            LOGGER.error("UUID {} is not valid.", uuid);
+            throw new InvalidObjectException(String.format("UUID is not valid. %s", uuid));
         }
     }
 }

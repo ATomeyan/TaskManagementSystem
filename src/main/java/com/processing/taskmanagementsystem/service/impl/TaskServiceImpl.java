@@ -4,6 +4,7 @@ import ch.qos.logback.classic.Logger;
 import com.processing.taskmanagementsystem.dto.request.task.TaskRequestDto;
 import com.processing.taskmanagementsystem.dto.request.update.task.TaskUpdateRequestDto;
 import com.processing.taskmanagementsystem.dto.response.task.TaskResponseDto;
+import com.processing.taskmanagementsystem.entity.Status;
 import com.processing.taskmanagementsystem.entity.Task;
 import com.processing.taskmanagementsystem.exception.InvalidObjectException;
 import com.processing.taskmanagementsystem.exception.NotFoundException;
@@ -100,15 +101,15 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<TaskResponseDto> getAllTaskByCriteria(String criteria, Integer pageNo, Integer pageSize, String sortBy) {
+    public List<TaskResponseDto> getAllTaskByStatus(String status, Integer pageNo, Integer pageSize, String sortBy) {
 
-        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by(sortBy).ascending());
+        Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by("status").ascending());
 
-        Page<Task> tasksByCriteria = taskRepository.findTasksByCriteria(criteria, pageable);
+        Page<Task> tasksByCriteria = taskRepository.findAllTasksByStatus(Status.valueOf(status), pageable);
 
         if (tasksByCriteria.isEmpty()) {
-            LOGGER.error("Task by {} does not found.", criteria);
-            throw new NotFoundException(String.format("Task does not found. %S", criteria));
+            LOGGER.error("Task by {} does not found.", status);
+            throw new NotFoundException(String.format("Task does not found. %S", status));
         }
 
         return tasksByCriteria.stream().map(TaskMapper::mapEntityToResponseDto).toList();
@@ -132,7 +133,7 @@ public class TaskServiceImpl implements TaskService {
     }
 
     @Override
-    public List<TaskResponseDto> getAllTasksSortedByPriority(Integer pageNo, Integer pageSize) {
+    public List<TaskResponseDto> getAllTasksByPriority(Integer pageNo, Integer pageSize) {
         Pageable pageable = PageRequest.of(pageNo, pageSize, Sort.by("priority").ascending());
 
         Page<Task> allTasksSortedByPriority = taskRepository.findAll(pageable);

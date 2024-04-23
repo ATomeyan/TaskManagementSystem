@@ -16,9 +16,9 @@ public interface TaskService {
 
     List<TaskResponseDto> getAllTasks(Integer pageNo, Integer pageSize, String sortBy);
 
-    List<TaskResponseDto> getAllTaskByCriteria(String criteria, Integer pageNo, Integer pageSize, String sortBy);
+    List<TaskResponseDto> getAllTaskByStatus(String status, Integer pageNo, Integer pageSize, String sortBy);
 
     boolean deleteTask(String uuid);
 
-    List<TaskResponseDto> getAllTasksSortedByPriority(Integer pageNo, Integer pageSize);
+    List<TaskResponseDto> getAllTasksByPriority(Integer pageNo, Integer pageSize);
 }

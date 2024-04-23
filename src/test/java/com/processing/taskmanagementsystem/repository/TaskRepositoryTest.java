@@ -1,5 +1,7 @@
 package com.processing.taskmanagementsystem.repository;
 
+import com.processing.taskmanagementsystem.entity.Priority;
+import com.processing.taskmanagementsystem.entity.Status;
 import com.processing.taskmanagementsystem.entity.Task;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -33,24 +35,24 @@ class TaskRepositoryTest {
                 .title("Button")
                 .description("Create btn.")
                 .dueDate(LocalDate.now())
-                .priority("1")
-                .status("To do")
+                .priority(Priority.valueOf("Normal"))
+                .status(Status.valueOf("Scheduled"))
                 .build();
 
         Task task1 = Task.builder()
                 .title("Pop up")
                 .description("Create pop up menu.")
                 .dueDate(LocalDate.now())
-                .priority("1")
-                .status("To do")
+                .priority(Priority.valueOf("Normal"))
+                .status(Status.valueOf("Scheduled"))
                 .build();
 
         Task task2 = Task.builder()
                 .title("Pop up menu")
                 .description("Create pop up menu.")
                 .dueDate(LocalDate.now())
-                .priority("1")
-                .status("To do")
+                .priority(Priority.valueOf("Normal"))
+                .status(Status.valueOf("Scheduled"))
                 .build();
 
         taskRepository.save(task);
@@ -86,7 +88,7 @@ class TaskRepositoryTest {
     @Test
     void givenTaskCriteria_whenFind_thenReturnTask() {
 
-        Page<Task> button = taskRepository.findTasksByCriteria("Button", PageRequest.of(0, 1));
+        Page<Task> button = taskRepository.findAllTasksByStatus(Status.valueOf("Scheduled"), PageRequest.of(0, 1));
 
         assertThat(button).isNotNull();
     }

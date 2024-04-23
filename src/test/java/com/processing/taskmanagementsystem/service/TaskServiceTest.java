@@ -2,6 +2,8 @@ package com.processing.taskmanagementsystem.service;
 
 import com.processing.taskmanagementsystem.dto.request.task.TaskRequestDto;
 import com.processing.taskmanagementsystem.dto.response.task.TaskResponseDto;
+import com.processing.taskmanagementsystem.entity.Priority;
+import com.processing.taskmanagementsystem.entity.Status;
 import com.processing.taskmanagementsystem.entity.Task;
 import com.processing.taskmanagementsystem.repository.TaskRepository;
 import com.processing.taskmanagementsystem.service.impl.TaskServiceImpl;
@@ -39,16 +41,16 @@ class TaskServiceTest {
                 .title("Button")
                 .description("Create btn.")
                 .dueDate(LocalDate.now())
-                .priority("1")
-                .status("To do")
+                .priority(Priority.valueOf("Normal"))
+                .status(Status.valueOf("Scheduled"))
                 .build();
 
         taskRequest = TaskRequestDto.builder()
                 .title("Button")
                 .description("Create btn.")
                 .dueDate(LocalDate.now())
-                .priority("1")
-                .status("To do")
+                .priority("Normal")
+                .status("Scheduled")
                 .build();
 
         taskRequest1 = TaskRequestDto.builder()
@@ -56,7 +58,7 @@ class TaskServiceTest {
                 .description("Create pop up menu.")
                 .dueDate(LocalDate.now())
                 .priority("1")
-                .status("To do")
+                .status("Scheduled")
                 .build();
     }
 

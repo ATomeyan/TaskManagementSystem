@@ -30,13 +30,13 @@ public class TaskController {
         return new ResponseEntity<>(allTasks, HttpStatus.OK);
     }
 
-    @GetMapping("/{criteria}")
-    public ResponseEntity<List<TaskResponseDto>> getAllTasksByStatusCriteria(@PathVariable String criteria,
-                                                                             @RequestParam(defaultValue = "0") Integer pageNo,
-                                                                             @RequestParam(defaultValue = "10") Integer pageSize,
-                                                                             @RequestParam(defaultValue = "title") String sortBy) {
+    @GetMapping("/by/{status}")
+    public ResponseEntity<List<TaskResponseDto>> getAllTasksByStatus(@PathVariable String status,
+                                                                     @RequestParam(defaultValue = "0") Integer pageNo,
+                                                                     @RequestParam(defaultValue = "10") Integer pageSize,
+                                                                     @RequestParam(defaultValue = "status") String sortBy) {
 
-        List<TaskResponseDto> allTaskByCriteria = taskService.getAllTaskByCriteria(criteria, pageNo, pageSize, sortBy);
+        List<TaskResponseDto> allTaskByCriteria = taskService.getAllTaskByStatus(status, pageNo, pageSize, sortBy);
 
         return new ResponseEntity<>(allTaskByCriteria, HttpStatus.OK);
     }
@@ -71,8 +71,9 @@ public class TaskController {
 
     @GetMapping("/priority")
     public ResponseEntity<List<TaskResponseDto>> getTasksSortedByPriority(@RequestParam(defaultValue = "0") Integer pageNo,
-                                                                    @RequestParam(defaultValue = "10") Integer pageSize) {
-        List<TaskResponseDto> allTasksSortedByPriority = taskService.getAllTasksSortedByPriority(pageNo, pageSize);
+                                                                          @RequestParam(defaultValue = "10") Integer pageSize) {
+
+        List<TaskResponseDto> allTasksSortedByPriority = taskService.getAllTasksByPriority(pageNo, pageSize);
 
         return new ResponseEntity<>(allTasksSortedByPriority, HttpStatus.OK);
     }

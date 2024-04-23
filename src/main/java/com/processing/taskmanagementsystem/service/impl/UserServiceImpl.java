@@ -3,7 +3,6 @@ package com.processing.taskmanagementsystem.service.impl;
 import ch.qos.logback.classic.Logger;
 import com.processing.taskmanagementsystem.dto.response.user.UserResponseDto;
 import com.processing.taskmanagementsystem.entity.User;
-import com.processing.taskmanagementsystem.exception.InvalidObjectException;
 import com.processing.taskmanagementsystem.exception.NotFoundException;
 import com.processing.taskmanagementsystem.mapper.UserMapper;
 import com.processing.taskmanagementsystem.repository.UserRepository;
@@ -98,20 +97,6 @@ public class UserServiceImpl implements UserService {
         }
 
         return userResponseDto;
-    }
-
-    @Override
-    public User findUserByUsername(String username) {
-        checkUsername(username);
-
-        Optional<User> userByUsername = userRepository.findUserByUsername(username);
-
-        if (userByUsername.isPresent()) {
-            return userByUsername.get();
-        } else {
-            LOGGER.error("User by username is invalid.");
-            throw new InvalidObjectException("User by username is invalid.");
-        }
     }
 
     @Override

@@ -30,10 +30,12 @@ public class Task extends BaseEntity {
     private LocalDate dueDate;
 
     @Column(name = PRIORITY, nullable = false)
-    private String priority;
+    @Enumerated(EnumType.STRING)
+    private Priority priority;
 
     @Column(name = STATUS, nullable = false)
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private Status status;
 
     @OneToMany(mappedBy = TASK, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<TaskUser> taskUsers;

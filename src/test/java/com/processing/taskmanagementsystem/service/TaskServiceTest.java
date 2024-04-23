@@ -57,7 +57,7 @@ class TaskServiceTest {
                 .title("Pop up menu")
                 .description("Create pop up menu.")
                 .dueDate(LocalDate.now())
-                .priority("1")
+                .priority("Normal")
                 .status("Scheduled")
                 .build();
     }
@@ -83,7 +83,7 @@ class TaskServiceTest {
 
         given(taskRepository.findAll()).willReturn(List.of(task));
 
-        List<TaskResponseDto> allTasks = taskService.getAllTasks(0, 1, "title");
+        List<TaskResponseDto> allTasks = taskService.getAllTasks(0, 10, "title");
 
         assertThat(allTasks).isNotNull();
         assertThat(allTasks).hasSizeGreaterThan(1);

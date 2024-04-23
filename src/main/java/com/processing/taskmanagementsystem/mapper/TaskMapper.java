@@ -3,6 +3,8 @@ package com.processing.taskmanagementsystem.mapper;
 import com.processing.taskmanagementsystem.dto.request.task.TaskRequestDto;
 import com.processing.taskmanagementsystem.dto.request.update.task.TaskUpdateRequestDto;
 import com.processing.taskmanagementsystem.dto.response.task.TaskResponseDto;
+import com.processing.taskmanagementsystem.entity.Priority;
+import com.processing.taskmanagementsystem.entity.Status;
 import com.processing.taskmanagementsystem.entity.Task;
 
 import java.time.LocalDate;
@@ -18,8 +20,8 @@ public class TaskMapper {
                 taskRequestDto.getTitle(),
                 taskRequestDto.getDescription(),
                 taskRequestDto.getDueDate(),
-                taskRequestDto.getPriority(),
-                taskRequestDto.getStatus());
+                Priority.valueOf(taskRequestDto.getPriority()),
+                Status.valueOf(taskRequestDto.getStatus()));
     }
 
     public static TaskResponseDto mapEntityToResponseDto(Task task) {
@@ -28,8 +30,8 @@ public class TaskMapper {
                 .title(task.getTitle())
                 .description(task.getDescription())
                 .dueDate(task.getDueDate())
-                .priority(task.getPriority())
-                .status(task.getStatus())
+                .priority(task.getPriority().getPriority())
+                .status(task.getStatus().getStatus())
                 .build();
     }
 
@@ -38,13 +40,13 @@ public class TaskMapper {
         existingTask.setTitle(taskUpdateRequestDto.getTitle());
         existingTask.setDescription(taskUpdateRequestDto.getDescription());
         existingTask.setDueDate(taskUpdateRequestDto.getDueDate());
-        existingTask.setPriority(taskUpdateRequestDto.getPriority());
-        existingTask.setStatus(taskUpdateRequestDto.getStatus());
+        existingTask.setPriority(Priority.valueOf(taskUpdateRequestDto.getPriority()));
+        existingTask.setStatus(Status.valueOf(taskUpdateRequestDto.getStatus()));
 
         return existingTask;
     }
 
-    private static Task createTaskEntity(String uuid, String title, String description, LocalDate dueDate, String priority, String status) {
+    private static Task createTaskEntity(String uuid, String title, String description, LocalDate dueDate, Priority priority, Status status) {
         Task task = new Task();
 
         task.setUuid(uuid);

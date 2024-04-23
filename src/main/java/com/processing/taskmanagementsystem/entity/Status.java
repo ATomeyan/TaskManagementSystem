@@ -2,9 +2,11 @@ package com.processing.taskmanagementsystem.entity;
 
 public enum Status {
 
-    ToDo("To Do"),
-    InProgress("In Progress"),
+    Scheduled("Scheduled"),
+    Notstarted("Not Started"),
+    Inprogress("In Progress"),
     Blocked("Blocked"),
+    Ontest("On Test"),
     Completed("Completed"),
     Cancelled("Cancelled");
 

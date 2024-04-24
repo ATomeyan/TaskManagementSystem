@@ -54,14 +54,9 @@ public class TaskServiceImpl implements TaskService {
         validateUpdateRequest(taskUpdateRequestDto);
 
         String uuid = taskUpdateRequestDto.getUuid();
-        Optional<Task> taskById = taskRepository.findById(uuid);
+        Task taskById = validateTaskByUuid(uuid);
 
-        if (taskById.isEmpty()) {
-            LOGGER.error("Task by {} uuid was not found.", uuid);
-            throw new NotFoundException(String.format("Task by uuid was not found. %s", uuid));
-        }
-
-        Task task = TaskMapper.mapUpdateRequestToEntity(taskById.get(), taskUpdateRequestDto);
+        Task task = TaskMapper.mapUpdateRequestToEntity(taskById, taskUpdateRequestDto);
 
         Task updatedTask = taskRepository.save(task);
 
@@ -71,10 +66,7 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public TaskResponseDto getTaskById(String uuid) {
 
-        if (uuid == null || uuid.isBlank()) {
-            LOGGER.error("UUID {} is not valid.", uuid);
-            throw new InvalidObjectException(String.format("UUID is not valid. %s", uuid));
-        }
+        validateUuid(uuid);
 
         Optional<Task> taskById = taskRepository.findById(uuid);
 
@@ -108,8 +100,8 @@ public class TaskServiceImpl implements TaskService {
         Page<Task> tasksByCriteria = taskRepository.findAllTasksByStatus(Status.valueOf(status), pageable);
 
         if (tasksByCriteria.isEmpty()) {
-            LOGGER.error("Task by {} does not found.", status);
-            throw new NotFoundException(String.format("Task does not found. %S", status));
+            LOGGER.error("Task by status {} does not found.", status);
+            throw new NotFoundException(String.format("Task by status does not found. %S", status));
         }
 
         return tasksByCriteria.stream().map(TaskMapper::mapEntityToResponseDto).toList();
@@ -144,6 +136,29 @@ public class TaskServiceImpl implements TaskService {
         }
 
         return allTasksSortedByPriority.stream().map(TaskMapper::mapEntityToResponseDto).toList();
+    }
+
+    @Override
+    public TaskResponseDto updateTaskStatus(String uuid, String status) {
+        validateUuid(uuid);
+
+        Task task = validateTaskByUuid(uuid);
+
+        task.setStatus(Status.valueOf(status));
+
+        Task updatedStatus = taskRepository.save(task);
+
+        return TaskMapper.mapEntityToResponseDto(updatedStatus);
+    }
+
+    private Task validateTaskByUuid(String uuid) {
+        Optional<Task> byUuid = taskRepository.findById(uuid);
+        if (byUuid.isEmpty()) {
+            LOGGER.error("Task by {} uuid was not found.", uuid);
+            throw new NotFoundException(String.format("Task by uuid was not found. %s", uuid));
+        } else {
+            return byUuid.get();
+        }
     }
 
     private void validateTaskRequest(TaskRequestDto taskRequestDto) {

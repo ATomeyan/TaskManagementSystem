@@ -2,6 +2,7 @@ package com.processing.taskmanagementsystem.controller;
 
 import com.processing.taskmanagementsystem.dto.request.task.TaskRequestDto;
 import com.processing.taskmanagementsystem.dto.request.update.task.TaskUpdateRequestDto;
+import com.processing.taskmanagementsystem.dto.request.update.task.TaskUpdateStatusRequestDto;
 import com.processing.taskmanagementsystem.dto.response.task.TaskResponseDto;
 import com.processing.taskmanagementsystem.service.TaskService;
 import org.springframework.http.HttpStatus;
@@ -76,5 +77,12 @@ public class TaskController {
         List<TaskResponseDto> allTasksSortedByPriority = taskService.getAllTasksByPriority(pageNo, pageSize);
 
         return new ResponseEntity<>(allTasksSortedByPriority, HttpStatus.OK);
+    }
+
+    @PatchMapping
+    public ResponseEntity<TaskResponseDto> updateTaskStatus(@RequestBody TaskUpdateStatusRequestDto taskUpdateStatusRequestDto) {
+        TaskResponseDto taskResponseDto = taskService.updateTaskStatus(taskUpdateStatusRequestDto.getTaskId(), taskUpdateStatusRequestDto.getStatus());
+
+        return new ResponseEntity<>(taskResponseDto, HttpStatus.OK);
     }
 }

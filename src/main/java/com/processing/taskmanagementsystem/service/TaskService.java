@@ -21,4 +21,6 @@ public interface TaskService {
     boolean deleteTask(String uuid);
 
     List<TaskResponseDto> getAllTasksByPriority(Integer pageNo, Integer pageSize);
+
+    TaskResponseDto updateTaskStatus(String uuid, String status);
 }

@@ -1,7 +1,10 @@
 package com.processing.taskmanagementsystem.entity;
 
 import jakarta.persistence.*;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.apache.commons.lang3.builder.EqualsBuilder;
 import org.apache.commons.lang3.builder.HashCodeBuilder;
 import org.apache.commons.lang3.builder.ToStringBuilder;
@@ -42,6 +45,9 @@ public class User extends BaseEntity {
     @Fetch(FetchMode.JOIN)
     private List<UserRoles> userRoles;
 
+    @OneToMany(mappedBy = USER, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<UserComment> userComments;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -58,6 +64,7 @@ public class User extends BaseEntity {
                 .append(enabled, user.enabled)
                 .append(taskUsers, user.taskUsers)
                 .append(userRoles, user.userRoles)
+                .append(userComments, user.userComments)
                 .isEquals();
     }
 
@@ -71,6 +78,7 @@ public class User extends BaseEntity {
                 .append(enabled)
                 .append(taskUsers)
                 .append(userRoles)
+                .append(userComments)
                 .toHashCode();
     }
 
@@ -84,6 +92,7 @@ public class User extends BaseEntity {
                 .append("enabled", enabled)
                 .append("taskUsers", taskUsers)
                 .append("userRoles", userRoles)
+                .append("userComments", userComments)
                 .toString();
     }
 }

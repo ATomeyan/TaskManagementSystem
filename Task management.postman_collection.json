@@ -175,8 +175,27 @@
 				{
 					"name": "Update user password",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b21leWFuIiwiZmlyc3ROYW1lIjoiQXJ0dXIiLCJsYXN0TmFtZSI6IlRvbWV5YW4iLCJleHAiOjE3MTQwMzQ0MjJ9.ixm6mhMmJ0Wugg_vzXIE02NDrMcKQ1hP6niEHXVZSK5DQn_rqCOUjIIAkLZLHDyjgvCU2Qr_vj5SKW-_msSs1A",
+									"type": "string"
+								}
+							]
+						},
 						"method": "PATCH",
 						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"uuid\": \"eda07ba2-1ecc-409a-96d6-ececbfb304ad\",\r\n    \"currentPassword\": \"Tomeyan123!\",\r\n    \"newPassword\": \"Tomeyan123!!!\",\r\n    \"confirmNewPassword\": \"Tomeyan123!!!\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
 						"url": {
 							"raw": "localhost:8081/api/v1/user",
 							"host": [
@@ -265,7 +284,7 @@
 							"bearer": [
 								{
 									"key": "token",
-									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b21leWFuIiwiZmlyc3ROYW1lIjoiQXJ0dXIiLCJsYXN0TmFtZSI6IlRvbWV5YW4iLCJleHAiOjE3MTM0Mzc2NjJ9.I9lPIiGtbMHJBE9VQKRrRjBc7XxgJ2b0z1_vHXWXTedGHR2GxnA9K0edbQuQPnHe6DzWjNl-rUy8q-qkFHp-qg",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b21leWFuIiwiZmlyc3ROYW1lIjoiQXJ0dXIiLCJsYXN0TmFtZSI6IlRvbWV5YW4iLCJleHAiOjE3MTM4NjMzMzZ9.FVxmrij2i7LdQPLDz5KV_aeTod-PrDrDw4CDuLjMtJ9XVC74jvAPpYa-hIJJSe0u9DtAoMhsp4bVUticQ91Hig",
 									"type": "string"
 								}
 							]
@@ -274,7 +293,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"title\": \"BTN\",\r\n    \"description\": \"asdsg\",\r\n    \"startDate\": \"2024-04-12\",\r\n    \"dueDate\": \"2024-04-20\",\r\n    \"priority\": \"1\",\r\n    \"status\": \"To do\"\r\n}",
+							"raw": "{\r\n    \"title\": \"BTN\",\r\n    \"description\": \"asdsg\",\r\n    \"startDate\": \"2024-04-23\",\r\n    \"dueDate\": \"2024-04-27\",\r\n    \"priority\": \"Normal\",\r\n    \"status\": \"Scheduled\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -361,10 +380,20 @@
 				{
 					"name": "Get task by criteria",
 					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b21leWFuIiwiZmlyc3ROYW1lIjoiQXJ0dXIiLCJsYXN0TmFtZSI6IlRvbWV5YW4iLCJleHAiOjE3MTM4NzE4MDJ9.ZGcQN51g9FAN8Jt-64FBnLztdjs-5nKh56f_nX9aIDEZkvXSsriDcoQ8RPJq_RovBgaTITePmB3Ol9Ijsoo-mw",
+									"type": "string"
+								}
+							]
+						},
 						"method": "GET",
 						"header": [],
 						"url": {
-							"raw": "localhost:8081/api/v1/task/{criteria}",
+							"raw": "localhost:8081/api/v1/task/by/Scheduled",
 							"host": [
 								"localhost"
 							],
@@ -373,7 +402,8 @@
 								"api",
 								"v1",
 								"task",
-								"{criteria}"
+								"by",
+								"Scheduled"
 							]
 						}
 					},
@@ -397,6 +427,45 @@
 						"body": {
 							"mode": "raw",
 							"raw": "{\r\n    \"uuid\": \"f83caf2e-4ac2-4db1-a18a-408b2e231753\",\r\n    \"title\": \"BTN color\",\r\n    \"description\": \"asdsg\",\r\n    \"startDate\": \"2024-04-12\",\r\n    \"dueDate\": \"2024-04-22\",\r\n    \"priority\": \"1\",\r\n    \"status\": \"To do\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/api/v1/task",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"task"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update task status",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b21leWFuIiwiZmlyc3ROYW1lIjoiQXJ0dXIiLCJsYXN0TmFtZSI6IlRvbWV5YW4iLCJleHAiOjE3MTQwMjc3ODl9.uPowQcsY_PTlHTd2mOV046z1tx-1GpxztoLT1F1_FfxY8MlgUI1WFVe36KgjSAGLXnMDLwXITJ9ErfsuKDPsvw",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"taskId\": \"62d41f42-e381-45b6-a3c1-26e6a327a111\",\r\n    \"status\": \"InProgress\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"

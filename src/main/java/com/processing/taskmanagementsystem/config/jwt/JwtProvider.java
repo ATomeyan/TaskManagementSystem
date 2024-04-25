@@ -18,8 +18,6 @@ public class JwtProvider {
     private static final Logger LOGGER = (Logger) LoggerFactory.getLogger(JwtProvider.class);
     @Value("${security.jwt.expiration.access-token-time}")
     private Long accessTokenExpirationTime;
-    @Value("${security.jwt.expiration.refresh-token-time}")
-    private Long refreshTokenExpirationTime;
     @Value("${security.jwt.secret-key}")
     private String secretKey;
     private String encodedKey;
@@ -31,10 +29,6 @@ public class JwtProvider {
 
     public String accessTokenGenerator(User user) {
         return generateToken(user, accessTokenExpirationTime);
-    }
-
-    public String refreshTokenGenerator(User user) {
-        return generateToken(user, refreshTokenExpirationTime);
     }
 
     public boolean validateToken(String token) {

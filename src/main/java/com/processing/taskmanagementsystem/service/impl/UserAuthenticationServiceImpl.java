@@ -75,17 +75,13 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
         if (userByUsername.isPresent() && userByUsername.get().isEnabled()) {
 
             String accessToken = jwtProvider.accessTokenGenerator(userByUsername.get());
-            String refreshToken = jwtProvider.refreshTokenGenerator(userByUsername.get());
 
             if (passwordEncoder.matches(userAuthenticationRequest.getPassword(), userByUsername.get().getPassword())) {
-                authenticationManager.authenticate(
-                        new UsernamePasswordAuthenticationToken(
+                authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(
                                 userAuthenticationRequest.getUsername(), userAuthenticationRequest.getPassword()));
+                return UserAuthenticationResponse.builder().accessToken(accessToken).build();
             }
-
-            return UserAuthenticationResponse.builder().accessToken(accessToken).refreshToken(refreshToken).build();
         }
-
         return (UserAuthenticationResponse) Optional.empty().get();
     }
 
@@ -112,18 +108,20 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
     @Override
     public void changePassword(ChangePasswordRequest changePasswordRequest, Principal principal) {
 
-        User user = (User) ((UsernamePasswordAuthenticationToken) principal).getPrincipal();
+        Optional<User> user = userRepository.findById(changePasswordRequest.getUuid());
 
-        if (!passwordEncoder.matches(changePasswordRequest.getCurrentPassword(), user.getPassword())) {
-            LOGGER.error("Wrong password.");
+        if (user.isPresent()) {
+            if (!passwordEncoder.matches(changePasswordRequest.getCurrentPassword(), user.get().getPassword())) {
+                LOGGER.error("Wrong password.");
+            }
+
+            if (!changePasswordRequest.getNewPassword().equals(changePasswordRequest.getConfirmNewPassword())) {
+                LOGGER.error("Password are not equal.");
+            }
+
+            user.get().setPassword(passwordEncoder.encode(changePasswordRequest.getNewPassword()));
+
+            userRepository.save(user.get());
         }
-
-        if (!changePasswordRequest.getNewPassword().equals(changePasswordRequest.getConfirmNewPassword())) {
-            LOGGER.error("Password are not equal.");
-        }
-
-        user.setPassword(passwordEncoder.encode(changePasswordRequest.getNewPassword()));
-
-        userRepository.save(user);
     }
 }

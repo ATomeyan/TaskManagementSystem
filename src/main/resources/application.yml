@@ -21,4 +21,3 @@ security:
     secret-key: MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDevlpBLbDw+wb+3myHhAjjcafDL1SAWjYIzdMsRiirOuBm6kWqZqtxgmyP+
     expiration:
       access-token-time: 3600000
-      refresh-token-time: 86400000

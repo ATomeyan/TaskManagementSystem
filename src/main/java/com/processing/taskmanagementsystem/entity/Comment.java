@@ -22,10 +22,10 @@ public class Comment extends BaseEntity {
     @Column(name = CONTENT, nullable = false)
     private String content;
 
-    @OneToMany(mappedBy = COMMENT, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = COMMENT, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<TaskComment> taskComments;
 
-    @OneToMany(mappedBy = COMMENT, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = COMMENT, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<UserComment> userComments;
 
     @Override
@@ -57,7 +57,7 @@ public class Comment extends BaseEntity {
         return new ToStringBuilder(this)
                 .append("content", content)
                 .append("taskComments", taskComments)
-                .append("taskUsers", userComments)
+                .append("userComments", userComments)
                 .toString();
     }
 }

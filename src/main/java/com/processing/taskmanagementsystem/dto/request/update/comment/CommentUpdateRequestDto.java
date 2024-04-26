@@ -18,6 +18,4 @@ public class CommentUpdateRequestDto implements Serializable {
 
     private String uuid;
     private String content;
-    private String userUid;
-    private String taskUid;
 }

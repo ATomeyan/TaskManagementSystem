@@ -3,10 +3,10 @@ package com.processing.taskmanagementsystem.entity;
 public enum Status {
 
     Scheduled("Scheduled"),
-    NotStarted("Not Started"),
-    InProgress("In Progress"),
+    Notstarted("Not Started"),
+    Inprogress("In Progress"),
     Blocked("Blocked"),
-    OnTest("On Test"),
+    Ontest("On Test"),
     Completed("Completed"),
     Cancelled("Cancelled");
 

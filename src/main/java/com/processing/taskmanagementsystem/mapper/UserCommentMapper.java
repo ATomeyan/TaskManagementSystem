@@ -11,12 +11,13 @@ public class UserCommentMapper {
     private UserCommentMapper() {
     }
 
-    public static UserComment mapRequestToEntity(Comment comment, User user) {
+    public static void mapRequestToEntity(Comment comment, User user) {
         UserComment userComment = new UserComment();
 
         userComment.setComment(comment);
         userComment.setUser(user);
 
-        return userComment;
+        comment.setUserComments(List.of(userComment));
+        user.setUserComments(List.of(userComment));
     }
 }

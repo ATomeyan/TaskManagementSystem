@@ -11,12 +11,13 @@ public class TaskCommentMapper {
     private TaskCommentMapper() {
     }
 
-    public static TaskComment mapRequestToEntity(Comment comment, Task task) {
+    public static void mapRequestToEntity(Comment comment, Task task) {
         TaskComment taskComment = new TaskComment();
 
         taskComment.setComment(comment);
         taskComment.setTask(task);
 
-        return taskComment;
+        comment.setTaskComments(List.of(taskComment));
+        task.setTaskComments(List.of(taskComment));
     }
 }

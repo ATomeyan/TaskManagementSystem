@@ -7,6 +7,7 @@ import com.processing.taskmanagementsystem.dto.response.comment.CommentResponseD
 import com.processing.taskmanagementsystem.entity.Comment;
 import com.processing.taskmanagementsystem.entity.Task;
 import com.processing.taskmanagementsystem.entity.User;
+import com.processing.taskmanagementsystem.exception.InvalidObjectException;
 import com.processing.taskmanagementsystem.exception.NotFoundException;
 import com.processing.taskmanagementsystem.mapper.CommentMapper;
 import com.processing.taskmanagementsystem.repository.CommentRepository;
@@ -17,7 +18,7 @@ import org.slf4j.LoggerFactory;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import java.util.Optional;
 
 /**
  * @author Artur Tomeyan
@@ -50,28 +51,57 @@ public class CommentServiceImpl implements CommentService {
         Comment comment = CommentMapper.mapRequestDtoToComment(task, user, commentRequestDto);
 
         Comment saved = commentRepository.save(comment);
-        LOGGER.info("Comment saved: {}", saved);
+        LOGGER.info("Comment successfully saved.");
 
         return CommentMapper.mapCommentToResponseDto(saved);
     }
 
     @Override
-    public List<CommentResponseDto> getAllComments() {
-        return List.of();
-    }
+    public CommentResponseDto getCommentById(String uuid) {
 
-    @Override
-    public CommentResponseDto getCommentById(int id) {
-        return null;
+        validateUuid(uuid);
+
+        Comment comment = commentRepository.findById(uuid).orElseThrow(() ->
+                new NotFoundException(String.format("Comment by uid does not found: %s", uuid)));
+
+        return CommentMapper.mapCommentToResponseDto(comment);
     }
 
     @Override
     public CommentResponseDto updateComment(CommentUpdateRequestDto commentUpdateRequestDto) {
-        return null;
+        String uuid = commentUpdateRequestDto.getUuid();
+
+        validateUuid(uuid);
+
+        Comment comment = commentRepository.findById(uuid).orElseThrow(() ->
+                new NotFoundException(String.format("Comment by uid does not found: %s", uuid)));
+
+        comment.setContent(commentUpdateRequestDto.getContent());
+
+        Comment updatedComment = commentRepository.save(comment);
+
+        return CommentMapper.mapCommentToResponseDto(updatedComment);
     }
 
     @Override
     public void deleteComment(String uuid) {
 
+        validateUuid(uuid);
+        Optional<Comment> comment = commentRepository.findById(uuid);
+
+        if (comment.isPresent()) {
+            commentRepository.deleteById(uuid);
+            LOGGER.info("Comment by {} uid was deleted.", uuid);
+        } else {
+            LOGGER.error("Comment by {} uid was not found.", uuid);
+            throw new NotFoundException(String.format("Comment by uid was not found. %s", uuid));
+        }
+    }
+
+    private void validateUuid(String uuid) {
+        if (uuid == null || uuid.isBlank()) {
+            LOGGER.error("UUID {} is not valid.", uuid);
+            throw new InvalidObjectException(String.format("UUID is not valid. %s", uuid));
+        }
     }
 }

@@ -4,8 +4,6 @@ import com.processing.taskmanagementsystem.dto.request.comment.CommentRequestDto
 import com.processing.taskmanagementsystem.dto.response.comment.CommentResponseDto;
 import com.processing.taskmanagementsystem.entity.*;
 
-import java.util.List;
-
 /**
  * @author Artur Tomeyan
  * @date 25.04.2024
@@ -19,22 +17,18 @@ public class CommentMapper {
 
         comment.setContent(commentRequestDto.getContent());
 
-        TaskComment taskComment = TaskCommentMapper.mapRequestToEntity(comment, task);
-        comment.setTaskComments(List.of(taskComment));
-        task.setTaskComments(List.of(taskComment));
+        TaskCommentMapper.mapRequestToEntity(comment, task);
 
-        UserComment userComment = UserCommentMapper.mapRequestToEntity(comment, user);
-        comment.setUserComments(List.of(userComment));
-        user.setUserComments(List.of(userComment));
+        UserCommentMapper.mapRequestToEntity(comment, user);
 
         return comment;
     }
 
     public static CommentResponseDto mapCommentToResponseDto(Comment comment) {
         return CommentResponseDto.builder()
-                .task(comment.getTaskComments().stream().iterator().next().getUuid())
+                .task(comment.getTaskComments().stream().iterator().next().getTask().getUuid())
                 .content(comment.getContent())
-                .author(comment.getUserComments().iterator().next().getUuid())
+                .author(comment.getUserComments().iterator().next().getUser().getUsername())
                 .build();
     }
 }

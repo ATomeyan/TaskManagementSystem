@@ -46,7 +46,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"username\": \"tomeyan\",\r\n    \"password\": \"Tomeyan123!\"\r\n}",
+							"raw": "{\r\n    \"username\": \"tomeyan\",\r\n    \"password\": \"Tomeyan123!!!\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
@@ -482,6 +482,152 @@
 								"api",
 								"v1",
 								"task"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Comment",
+			"item": [
+				{
+					"name": "Add comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b21leWFuIiwiZmlyc3ROYW1lIjoiQXJ0dXIiLCJsYXN0TmFtZSI6IlRvbWV5YW4iLCJleHAiOjE3MTQxMjk5MTF9.TX3_FoW6t59SGsyRpkAWN-lkX_IGmOG4niX4YM3pHZHcHCfh6pSBvWOWmAbWh_ePM9xVyCMNHPweQ7pSdSJ2aQ",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"content\": \"Test44555545687945\",\r\n    \"userUid\": \"eda07ba2-1ecc-409a-96d6-ececbfb304ad\",\r\n    \"taskUid\": \"62d41f42-e381-45b6-a3c1-26e6a327a111\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/api/v1/comment",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Update comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b21leWFuIiwiZmlyc3ROYW1lIjoiQXJ0dXIiLCJsYXN0TmFtZSI6IlRvbWV5YW4iLCJleHAiOjE3MTQxMzI1OTJ9.0I4Z1P2ukhvXTuIVdiMYh7bHOaQD4yHNe95Ib2Y1E7xzPMLJR26DVKNIY0VNIA7muUgAjJRgBmhnS8Te7OXBEg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"uuid\": \"0ec2a8da-6d9a-44e1-8956-b9e737692ef9\",\r\n    \"content\": \"Test123000000045679111111111\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "localhost:8081/api/v1/comment",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"comment"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Get comment by uid",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b21leWFuIiwiZmlyc3ROYW1lIjoiQXJ0dXIiLCJsYXN0TmFtZSI6IlRvbWV5YW4iLCJleHAiOjE3MTQxMzI1OTJ9.0I4Z1P2ukhvXTuIVdiMYh7bHOaQD4yHNe95Ib2Y1E7xzPMLJR26DVKNIY0VNIA7muUgAjJRgBmhnS8Te7OXBEg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/api/v1/comment/by/0ec2a8da-6d9a-44e1-8956-b9e737692ef9",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"comment",
+								"by",
+								"0ec2a8da-6d9a-44e1-8956-b9e737692ef9"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Delete comment",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJ0b21leWFuIiwiZmlyc3ROYW1lIjoiQXJ0dXIiLCJsYXN0TmFtZSI6IlRvbWV5YW4iLCJleHAiOjE3MTQxMzI1OTJ9.0I4Z1P2ukhvXTuIVdiMYh7bHOaQD4yHNe95Ib2Y1E7xzPMLJR26DVKNIY0VNIA7muUgAjJRgBmhnS8Te7OXBEg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"url": {
+							"raw": "localhost:8081/api/v1/comment/0ec2a8da-6d9a-44e1-8956-b9e737692ef9",
+							"host": [
+								"localhost"
+							],
+							"port": "8081",
+							"path": [
+								"api",
+								"v1",
+								"comment",
+								"0ec2a8da-6d9a-44e1-8956-b9e737692ef9"
 							]
 						}
 					},

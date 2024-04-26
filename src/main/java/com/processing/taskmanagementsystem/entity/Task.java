@@ -40,6 +40,9 @@ public class Task extends BaseEntity {
     @OneToMany(mappedBy = TASK, fetch = FetchType.EAGER, cascade = CascadeType.ALL)
     private List<TaskUser> taskUsers;
 
+    @OneToMany(mappedBy = TASK, fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<TaskComment> taskComments;
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
@@ -55,6 +58,7 @@ public class Task extends BaseEntity {
                 .append(priority, task.priority)
                 .append(status, task.status)
                 .append(taskUsers, task.taskUsers)
+                .append(taskComments, task.taskComments)
                 .isEquals();
     }
 
@@ -67,6 +71,7 @@ public class Task extends BaseEntity {
                 .append(priority)
                 .append(status)
                 .append(taskUsers)
+                .append(taskComments)
                 .toHashCode();
     }
 
@@ -79,6 +84,7 @@ public class Task extends BaseEntity {
                 .append("priority", priority)
                 .append("status", status)
                 .append("taskUser", taskUsers)
+                .append("taskComments", taskComments)
                 .toString();
     }
 }

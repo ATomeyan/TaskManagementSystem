@@ -14,6 +14,8 @@ public final class DBConstants {
     public static final String TB_COMMENT = "tb_comment";
     public static final String TB_TASK_COMMENT = "tb_task_comment";
     public static final String TB_USER_COMMENT = "tb_user_comment";
+    public static final String TB_NOTIFICATION = "tb_notification";
+    public static final String TB_USER_NOTIFICATION = "tb_user_notification";
 
     // Base entity fields
     public static final String CRATED = "created";
@@ -42,10 +44,14 @@ public final class DBConstants {
     public static final String ROLE_UID = "role_uid";
     public static final String TASK_UID = "task_uid";
     public static final String COMMENT_UID = "comment_uid";
+    public static final String NOTIFICATION_UID = "notification_uid";
     public static final String USER = "user";
     public static final String TASK = "task";
     public static final String ROLE = "role";
     public static final String COMMENT = "comment";
+    public static final String NOTIFICATION = "notification";
 
     public static final String CONTENT = "content";
+    public static final String MESSAGE = "message";
+    public static final String IS_READ = "is_read";
 }

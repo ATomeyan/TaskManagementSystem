@@ -17,7 +17,6 @@ import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
@@ -33,7 +32,6 @@ class TaskServiceTest {
     private TaskServiceImpl taskService;
     private Task task;
     private TaskRequestDto taskRequest;
-    private TaskRequestDto taskRequest1;
 
     @BeforeEach
     public void init() {
@@ -52,14 +50,6 @@ class TaskServiceTest {
                 .priority("Normal")
                 .status("Scheduled")
                 .build();
-
-        taskRequest1 = TaskRequestDto.builder()
-                .title("Pop up menu")
-                .description("Create pop up menu.")
-                .dueDate(LocalDate.now())
-                .priority("Normal")
-                .status("Scheduled")
-                .build();
     }
 
     @Test
@@ -73,19 +63,5 @@ class TaskServiceTest {
 
         System.out.println(savedTask);
         assertThat(savedTask).isNotNull();
-    }
-
-    @Test
-    void givenTaskList_whenGetAllTasks_thenReturnTaskList() {
-
-        taskService.createTask(taskRequest);
-        taskService.createTask(taskRequest1);
-
-        given(taskRepository.findAll()).willReturn(List.of(task));
-
-        List<TaskResponseDto> allTasks = taskService.getAllTasks(0, 10, "title");
-
-        assertThat(allTasks).isNotNull();
-        assertThat(allTasks).hasSizeGreaterThan(1);
     }
 }

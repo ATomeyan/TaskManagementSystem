@@ -8,8 +8,6 @@ import com.processing.taskmanagementsystem.dto.request.notification.Notification
  */
 public interface NotificationService {
 
-    void generateNotificationByDueDateDeadLine(NotificationRequestDto notificationRequestDto);
-
     void generateNotificationByAssignedNewTask(NotificationRequestDto notificationRequestDto);
 
     void generateNotificationByUpdatingTask(NotificationRequestDto notificationRequestDto);

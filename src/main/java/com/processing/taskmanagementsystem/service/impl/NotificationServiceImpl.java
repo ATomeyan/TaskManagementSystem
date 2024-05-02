@@ -5,6 +5,7 @@ import com.processing.taskmanagementsystem.dto.request.notification.Notification
 import com.processing.taskmanagementsystem.repository.NotificationRepository;
 import com.processing.taskmanagementsystem.service.NotificationService;
 import org.slf4j.LoggerFactory;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 /**
@@ -23,11 +24,6 @@ public class NotificationServiceImpl implements NotificationService {
     }
 
     @Override
-    public void generateNotificationByDueDateDeadLine(NotificationRequestDto notificationRequestDto) {
-
-    }
-
-    @Override
     public void generateNotificationByAssignedNewTask(NotificationRequestDto notificationRequestDto) {
 
     }
@@ -39,6 +35,11 @@ public class NotificationServiceImpl implements NotificationService {
 
     @Override
     public void deleteNotification(String uuid) {
+
+    }
+
+    @Scheduled(cron = " * * * * * *")
+    private void generateNotificationByDueDateDeadLine(NotificationRequestDto notificationRequestDto) {
 
     }
 }

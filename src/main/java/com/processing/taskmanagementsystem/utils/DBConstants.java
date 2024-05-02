@@ -21,7 +21,7 @@ public final class DBConstants {
     public static final String CRATED = "created";
     public static final String UPDATED = "updated";
 
-    // Role table fields
+    // Role table field
     public static final String NAME = "name";
 
     // Task table fields
@@ -38,6 +38,13 @@ public final class DBConstants {
     public static final String PASSWORD = "password";
     public static final String ENABLED = "enabled";
 
+    // Comment table field
+    public static final String CONTENT = "content";
+
+    // Notification table fields
+    public static final String IS_READ = "is_read";
+    public static final String MESSAGE = "message";
+
     // Mapped tables
     public static final String UUID = "uuid";
     public static final String USER_UID = "user_uid";
@@ -50,8 +57,4 @@ public final class DBConstants {
     public static final String ROLE = "role";
     public static final String COMMENT = "comment";
     public static final String NOTIFICATION = "notification";
-
-    public static final String CONTENT = "content";
-    public static final String MESSAGE = "message";
-    public static final String IS_READ = "is_read";
 }

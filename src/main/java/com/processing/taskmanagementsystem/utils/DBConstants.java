@@ -44,6 +44,7 @@ public final class DBConstants {
     // Notification table fields
     public static final String IS_READ = "is_read";
     public static final String MESSAGE = "message";
+    public static final String DATETIME = "date_time";
 
     // Mapped tables
     public static final String UUID = "uuid";

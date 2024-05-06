@@ -1,6 +1,7 @@
 package com.processing.taskmanagementsystem.service;
 
 import com.processing.taskmanagementsystem.dto.request.notification.NotificationRequestDto;
+import com.processing.taskmanagementsystem.dto.response.notification.NotificationResponse;
 
 /**
  * @author Artur Tomeyan
@@ -8,9 +9,9 @@ import com.processing.taskmanagementsystem.dto.request.notification.Notification
  */
 public interface NotificationService {
 
-    void generateNotificationByAssignedNewTask(NotificationRequestDto notificationRequestDto);
+    NotificationResponse generateNotificationByAssignedNewTask(NotificationRequestDto notificationRequestDto);
 
-    void generateNotificationByUpdatingTask(NotificationRequestDto notificationRequestDto);
+    NotificationResponse generateNotificationByUpdatingTask(NotificationRequestDto notificationRequestDto);
 
     void deleteNotification(String uuid);
 }

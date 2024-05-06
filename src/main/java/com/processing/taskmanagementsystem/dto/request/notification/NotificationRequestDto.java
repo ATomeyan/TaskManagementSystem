@@ -6,6 +6,7 @@ import lombok.Getter;
 import lombok.Setter;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 /**
  * @author Artur Tomeyan
@@ -17,6 +18,8 @@ import java.io.Serializable;
 @Builder
 public class NotificationRequestDto implements Serializable {
 
+    @NotBlank
+    private LocalDateTime dateTime;
     @NotBlank
     private String message;
     @NotBlank

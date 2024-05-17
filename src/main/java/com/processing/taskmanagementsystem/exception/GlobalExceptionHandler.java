@@ -40,7 +40,7 @@ public class GlobalExceptionHandler {
 
     @ResponseStatus(BAD_REQUEST)
     @ExceptionHandler(UserAssignedToTaskException.class)
-    public ResponseEntity<ExceptionResponse> handleNotFoundException(UserAssignedToTaskException e, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<ExceptionResponse> handleUserAssignedToTaskException(UserAssignedToTaskException e, HttpServletRequest httpServletRequest) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(
                 UUID.randomUUID(),
                 BAD_REQUEST.getReasonPhrase(),
@@ -57,7 +57,7 @@ public class GlobalExceptionHandler {
 
     @ResponseStatus(BAD_REQUEST)
     @ExceptionHandler(UserAlreadyExistException.class)
-    public ResponseEntity<ExceptionResponse> handleNotFoundException(UserAlreadyExistException e, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<ExceptionResponse> handleUserAlreadyExistException(UserAlreadyExistException e, HttpServletRequest httpServletRequest) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(
                 UUID.randomUUID(),
                 BAD_REQUEST.getReasonPhrase(),
@@ -91,7 +91,7 @@ public class GlobalExceptionHandler {
 
     @ResponseStatus(BAD_REQUEST)
     @ExceptionHandler(InvalidObjectException.class)
-    public ResponseEntity<ExceptionResponse> handleNotFoundException(InvalidObjectException e, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<ExceptionResponse> handleInvalidObjectException(InvalidObjectException e, HttpServletRequest httpServletRequest) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(
                 UUID.randomUUID(),
                 BAD_REQUEST.getReasonPhrase(),
@@ -108,7 +108,7 @@ public class GlobalExceptionHandler {
 
     @ResponseStatus(BAD_REQUEST)
     @ExceptionHandler(EmptyException.class)
-    public ResponseEntity<ExceptionResponse> handleNotFoundException(EmptyException e, HttpServletRequest httpServletRequest) {
+    public ResponseEntity<ExceptionResponse> handleEmptyException(EmptyException e, HttpServletRequest httpServletRequest) {
         ExceptionResponse exceptionResponse = new ExceptionResponse(
                 UUID.randomUUID(),
                 BAD_REQUEST.getReasonPhrase(),

@@ -10,6 +10,7 @@ import static com.processing.taskmanagementsystem.utils.DBConstants.*;
 
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 @Entity

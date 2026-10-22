@@ -1,7 +1,7 @@
 spring:
   datasource:
     username: root
-    password:
+    password: 123456789
     url: jdbc:mysql://localhost:3306/taskmanagement
   jpa:
     show-sql: false

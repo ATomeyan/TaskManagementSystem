@@ -92,4 +92,11 @@ public class UserController {
 
         return new ResponseEntity<>(deleteUser, HttpStatus.OK);
     }
+
+    @GetMapping("/byId/{uuid}")
+    public ResponseEntity<UserResponseDto> getById(@PathVariable String uuid) {
+        UserResponseDto byId = userService.getById(uuid);
+
+        return new ResponseEntity<>(byId, HttpStatus.OK);
+    }
 }

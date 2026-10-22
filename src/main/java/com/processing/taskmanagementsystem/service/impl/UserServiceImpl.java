@@ -114,6 +114,15 @@ public class UserServiceImpl implements UserService {
         }
     }
 
+    @Override
+    public UserResponseDto getById(String uuid) {
+
+        User user = userRepository.findById(uuid).orElseThrow(() ->
+                new NotFoundException(String.format("User by uid not found: %s", uuid)));
+
+        return UserMapper.mapEntityToUserResponse(user);
+    }
+
     private void checkUsername(String username) {
         if (username == null || username.isBlank()) {
             LOGGER.error("The username is empty.");

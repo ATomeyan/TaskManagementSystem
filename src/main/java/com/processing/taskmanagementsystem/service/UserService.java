@@ -15,4 +15,6 @@ public interface UserService {
     UserResponseDto findByUsername(String username);
 
     boolean deleteUser(String uuid);
+
+    UserResponseDto getById(String uuid);
 }

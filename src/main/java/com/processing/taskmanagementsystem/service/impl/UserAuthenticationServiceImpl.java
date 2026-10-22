@@ -67,7 +67,7 @@ public class UserAuthenticationServiceImpl implements UserAuthenticationService 
 
         if (userAuthenticationRequest == null) {
             LOGGER.error("Authentication request {} is invalid.", userAuthenticationRequest);
-            throw new InvalidObjectException(String.format("Authentication request {} is invalid. %s", userAuthenticationRequest));
+            throw new InvalidObjectException(String.format("Authentication request %s is invalid.", userAuthenticationRequest));
         }
 
         Optional<User> userByUsername = userRepository.findUserByUsername(userAuthenticationRequest.getUsername());

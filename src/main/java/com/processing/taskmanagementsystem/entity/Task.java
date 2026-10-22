@@ -20,6 +20,11 @@ import static com.processing.taskmanagementsystem.utils.DBConstants.*;
 @Table(name = TB_TASK)
 public class Task extends BaseEntity {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.UUID)
+    @Column(columnDefinition = "VARCHAR(36)")
+    private String uuid;
+
     @Column(name = TITLE, nullable = false)
     private String title;
 
